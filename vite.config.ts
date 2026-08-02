@@ -1,9 +1,21 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
+import { devtools } from "@tanstack/devtools-vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
 
-// https://vite.dev/config/
-export default defineConfig({
+const config = defineConfig({
   resolve: { tsconfigPaths: true },
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    devtools(),
+    tailwindcss(),
+    tanstackStart({
+      spa: {
+        enabled: true,
+      },
+    }),
+    viteReact(),
+  ],
 });
+
+export default config;
