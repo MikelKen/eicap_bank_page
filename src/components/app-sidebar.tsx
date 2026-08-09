@@ -41,6 +41,13 @@ const NAV_ITEMS: NavItem[] = [
     allowedRoles: ["admin", "student"],
   },
   {
+    title: "Usuarios",
+    url: "/dashboard/user",
+    icon: Home,
+    isActive: true,
+    allowedRoles: ["admin"],
+  },
+  {
     title: "Operaciones Bancarias",
     url: "/dashboard/user/client",
     icon: Bot,
@@ -49,11 +56,6 @@ const NAV_ITEMS: NavItem[] = [
       {
         title: "Clientes",
         url: "/dashboard/user/account",
-        allowedRoles: ["admin"],
-      },
-      {
-        title: "Caja",
-        url: "/dashboard/user/client",
         allowedRoles: ["admin"],
       },
       {

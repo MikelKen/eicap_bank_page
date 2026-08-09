@@ -14,6 +14,7 @@ import { Route as ProtectedRouteImport } from './routes/_protected'
 import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
 import { Route as ProtectedDashboardRouteImport } from './routes/_protected/dashboard'
 import { Route as ProtectedDashboardIndexRouteImport } from './routes/_protected/dashboard/index'
+import { Route as ProtectedDashboardUserIndexRouteImport } from './routes/_protected/dashboard/user/index'
 import { Route as ProtectedDashboardUserAccountRouteImport } from './routes/_protected/dashboard/user/account'
 import { Route as ProtectedDashboardUserClientRouteImport } from './routes/_protected/dashboard/user/client'
 import { Route as ProtectedDashboardUserMeRouteImport } from './routes/_protected/dashboard/user/me'
@@ -42,6 +43,12 @@ const ProtectedDashboardIndexRoute = ProtectedDashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ProtectedDashboardRoute,
 } as any)
+const ProtectedDashboardUserIndexRoute =
+  ProtectedDashboardUserIndexRouteImport.update({
+    id: '/user/',
+    path: '/user/',
+    getParentRoute: () => ProtectedDashboardRoute,
+  } as any)
 const ProtectedDashboardUserAccountRoute =
   ProtectedDashboardUserAccountRouteImport.update({
     id: '/user/account',
@@ -69,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/user/account': typeof ProtectedDashboardUserAccountRoute
   '/dashboard/user/client': typeof ProtectedDashboardUserClientRoute
   '/dashboard/user/me': typeof ProtectedDashboardUserMeRoute
+  '/dashboard/user/': typeof ProtectedDashboardUserIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -77,6 +85,7 @@ export interface FileRoutesByTo {
   '/dashboard/user/account': typeof ProtectedDashboardUserAccountRoute
   '/dashboard/user/client': typeof ProtectedDashboardUserClientRoute
   '/dashboard/user/me': typeof ProtectedDashboardUserMeRoute
+  '/dashboard/user': typeof ProtectedDashboardUserIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -88,6 +97,7 @@ export interface FileRoutesById {
   '/_protected/dashboard/user/account': typeof ProtectedDashboardUserAccountRoute
   '/_protected/dashboard/user/client': typeof ProtectedDashboardUserClientRoute
   '/_protected/dashboard/user/me': typeof ProtectedDashboardUserMeRoute
+  '/_protected/dashboard/user/': typeof ProtectedDashboardUserIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/dashboard/user/account'
     | '/dashboard/user/client'
     | '/dashboard/user/me'
+    | '/dashboard/user/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/dashboard/user/account'
     | '/dashboard/user/client'
     | '/dashboard/user/me'
+    | '/dashboard/user'
   id:
     | '__root__'
     | '/'
@@ -117,6 +129,7 @@ export interface FileRouteTypes {
     | '/_protected/dashboard/user/account'
     | '/_protected/dashboard/user/client'
     | '/_protected/dashboard/user/me'
+    | '/_protected/dashboard/user/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -162,6 +175,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedDashboardIndexRouteImport
       parentRoute: typeof ProtectedDashboardRoute
     }
+    '/_protected/dashboard/user/': {
+      id: '/_protected/dashboard/user/'
+      path: '/user'
+      fullPath: '/dashboard/user/'
+      preLoaderRoute: typeof ProtectedDashboardUserIndexRouteImport
+      parentRoute: typeof ProtectedDashboardRoute
+    }
     '/_protected/dashboard/user/account': {
       id: '/_protected/dashboard/user/account'
       path: '/user/account'
@@ -191,6 +211,7 @@ interface ProtectedDashboardRouteChildren {
   ProtectedDashboardUserAccountRoute: typeof ProtectedDashboardUserAccountRoute
   ProtectedDashboardUserClientRoute: typeof ProtectedDashboardUserClientRoute
   ProtectedDashboardUserMeRoute: typeof ProtectedDashboardUserMeRoute
+  ProtectedDashboardUserIndexRoute: typeof ProtectedDashboardUserIndexRoute
 }
 
 const ProtectedDashboardRouteChildren: ProtectedDashboardRouteChildren = {
@@ -198,6 +219,7 @@ const ProtectedDashboardRouteChildren: ProtectedDashboardRouteChildren = {
   ProtectedDashboardUserAccountRoute: ProtectedDashboardUserAccountRoute,
   ProtectedDashboardUserClientRoute: ProtectedDashboardUserClientRoute,
   ProtectedDashboardUserMeRoute: ProtectedDashboardUserMeRoute,
+  ProtectedDashboardUserIndexRoute: ProtectedDashboardUserIndexRoute,
 }
 
 const ProtectedDashboardRouteWithChildren =

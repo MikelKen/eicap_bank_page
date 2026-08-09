@@ -41,7 +41,8 @@ const PaginatedResponse = <T extends z.ZodType>(schema: T) =>
     items: z.array(schema),
     total: z.number().int().nonnegative(),
     page: z.number().int().positive(),
-    per_page: z.number().int().nonnegative(),
+    per_page: z.number().int().positive(),
+    total_pages: z.number().int().nonnegative(),
   });
 
 export { OkResponse, ErrorSchema, parseResponse, PaginatedResponse };
