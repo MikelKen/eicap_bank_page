@@ -1,15 +1,6 @@
 import * as React from "react";
-import {
-  Bot,
-  Command,
-  Frame,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
-} from "lucide-react";
+import { Bot, Home, Command, UserRound, type LucideIcon } from "lucide-react";
 import { NavMain } from "@/components/nav-main";
-import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
@@ -20,87 +11,109 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  navMain: [
-    {
-      title: "Operaciones Bancarias",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "Clientes",
-          url: "/user/client",
-        },
-        {
-          title: "Caja",
-          url: "#",
-        },
-        {
-          title: "Reportes de Cierre",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Creditos",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Calcular Credito",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
+import { useAuthStore } from "@/stores/auth.store";
+import { usePermission } from "@/stores/permission.store";
+
+type PermissionRole = "admin" | "student";
+
+type NavSubItem = {
+  title: string;
+  url: string;
+  allowedRoles: PermissionRole[];
 };
+
+type NavItem = {
+  title: string;
+  url: string;
+  icon: LucideIcon;
+  isActive?: boolean;
+  allowedRoles: PermissionRole[];
+  items?: NavSubItem[];
+};
+
+const NAV_ITEMS: NavItem[] = [
+  {
+    title: "Inicio",
+    url: "/dashboard",
+    icon: Home,
+    isActive: true,
+    allowedRoles: ["admin", "student"],
+  },
+  {
+    title: "Operaciones Bancarias",
+    url: "/dashboard/user/client",
+    icon: Bot,
+    allowedRoles: ["admin"],
+    items: [
+      {
+        title: "Clientes",
+        url: "/dashboard/user/client",
+        allowedRoles: ["admin"],
+      },
+      {
+        title: "Caja",
+        url: "/dashboard/user/client",
+        allowedRoles: ["admin"],
+      },
+      {
+        title: "Reportes de Cierre de Caja",
+        url: "/dashboard/user/client",
+        allowedRoles: ["admin"],
+      },
+    ],
+  },
+  {
+    title: "Creditos",
+    url: "/dashboard/user/me",
+    icon: UserRound,
+    allowedRoles: ["admin", "student"],
+    items: [
+      {
+        title: "Calcular Credito",
+        url: "/dashboard/user/client",
+        allowedRoles: ["admin"],
+      },
+    ],
+  },
+];
+
+function hasAccess(
+  role: PermissionRole | null,
+  allowedRoles: PermissionRole[],
+) {
+  return role !== null && allowedRoles.includes(role);
+}
+
+function getNavItems(role: PermissionRole | null) {
+  return NAV_ITEMS.flatMap((item) => {
+    if (!hasAccess(role, item.allowedRoles)) {
+      return [];
+    }
+
+    const filteredItems = item.items?.filter((subItem) =>
+      hasAccess(role, subItem.allowedRoles),
+    );
+
+    if (item.items && filteredItems?.length === 0) {
+      return [];
+    }
+
+    return [
+      {
+        ...item,
+        items: filteredItems,
+      },
+    ];
+  });
+}
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const permission = usePermission((state) => state.permission);
+  const storeUser = useAuthStore((state) => state.user);
+  const user = storeUser;
+  const role = permission ?? (user?.role as PermissionRole | undefined) ?? null;
+  const navMain = getNavItems(role);
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -112,8 +125,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <Command className="size-4" />
                 </div>
                 <div className="flex flex-col justify-center flex-1 text-left text-sm leading-tight ml-2">
-                  <span className="truncate font-medium">Acme Inc</span>
-                  <span className="truncate text-xs">Enterprise</span>
+                  <span className="truncate font-medium">{user?.name}</span>
+                  <span className="truncate text-xs">{user?.role}</span>
                 </div>
               </>
             </SidebarMenuButton>
@@ -121,11 +134,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavMain items={navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
     </Sidebar>
   );
