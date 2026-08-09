@@ -8,135 +8,155 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProtectedRouteImport } from './routes/_protected'
-import { Route as ProtectedDashboardRouteImport } from './routes/_protected/dashboard'
-import { Route as ProtectedDashboardIndexRouteImport } from './routes/_protected/dashboard/index'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as ProtectedRouteImport } from "./routes/_protected";
+import { Route as ProtectedDashboardRouteImport } from "./routes/_protected/_dashboard.tsx";
+import { Route as ProtectedDashboardIndexRouteImport } from "./routes/_protected/_dashboard/index";
+import { Route as ProtectedDashboardUserMeRouteImport } from "./routes/_protected/_dashboard/user/me.tsx";
 
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ProtectedRoute = ProtectedRouteImport.update({
-  id: '/_protected',
+  id: "/_protected",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ProtectedDashboardRoute = ProtectedDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+  id: "/dashboard",
+  path: "/dashboard",
   getParentRoute: () => ProtectedRoute,
-} as any)
+} as any);
 const ProtectedDashboardIndexRoute = ProtectedDashboardIndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => ProtectedDashboardRoute,
-} as any)
+} as any);
+const ProtectedDashboardUserMeRoute =
+  ProtectedDashboardUserMeRouteImport.update({
+    id: "/user/me",
+    path: "/user/me",
+    getParentRoute: () => ProtectedDashboardRoute,
+  } as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/dashboard': typeof ProtectedDashboardRouteWithChildren
-  '/dashboard/': typeof ProtectedDashboardIndexRoute
+  "/": typeof IndexRoute;
+  "/dashboard": typeof ProtectedDashboardRouteWithChildren;
+  "/dashboard/": typeof ProtectedDashboardIndexRoute;
+  "/dashboard/user/me": typeof ProtectedDashboardUserMeRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/dashboard': typeof ProtectedDashboardIndexRoute
+  "/": typeof IndexRoute;
+  "/dashboard": typeof ProtectedDashboardIndexRoute;
+  "/dashboard/user/me": typeof ProtectedDashboardUserMeRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/_protected': typeof ProtectedRouteWithChildren
-  '/_protected/dashboard': typeof ProtectedDashboardRouteWithChildren
-  '/_protected/dashboard/': typeof ProtectedDashboardIndexRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/_protected": typeof ProtectedRouteWithChildren;
+  "/_protected/dashboard": typeof ProtectedDashboardRouteWithChildren;
+  "/_protected/dashboard/": typeof ProtectedDashboardIndexRoute;
+  "/_protected/dashboard/user/me": typeof ProtectedDashboardUserMeRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/dashboard/'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard'
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: "/" | "/dashboard" | "/dashboard/" | "/dashboard/user/me";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/" | "/dashboard" | "/dashboard/user/me";
   id:
-    | '__root__'
-    | '/'
-    | '/_protected'
-    | '/_protected/dashboard'
-    | '/_protected/dashboard/'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/_protected"
+    | "/_protected/dashboard"
+    | "/_protected/dashboard/"
+    | "/_protected/dashboard/user/me";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  ProtectedRoute: typeof ProtectedRouteWithChildren
+  IndexRoute: typeof IndexRoute;
+  ProtectedRoute: typeof ProtectedRouteWithChildren;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_protected': {
-      id: '/_protected'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof ProtectedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_protected/dashboard': {
-      id: '/_protected/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof ProtectedDashboardRouteImport
-      parentRoute: typeof ProtectedRoute
-    }
-    '/_protected/dashboard/': {
-      id: '/_protected/dashboard/'
-      path: '/'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof ProtectedDashboardIndexRouteImport
-      parentRoute: typeof ProtectedDashboardRoute
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/_protected": {
+      id: "/_protected";
+      path: "";
+      fullPath: "/";
+      preLoaderRoute: typeof ProtectedRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/_protected/dashboard": {
+      id: "/_protected/dashboard";
+      path: "/dashboard";
+      fullPath: "/dashboard";
+      preLoaderRoute: typeof ProtectedDashboardRouteImport;
+      parentRoute: typeof ProtectedRoute;
+    };
+    "/_protected/dashboard/": {
+      id: "/_protected/dashboard/";
+      path: "/";
+      fullPath: "/dashboard/";
+      preLoaderRoute: typeof ProtectedDashboardIndexRouteImport;
+      parentRoute: typeof ProtectedDashboardRoute;
+    };
+    "/_protected/dashboard/user/me": {
+      id: "/_protected/dashboard/user/me";
+      path: "/user/me";
+      fullPath: "/dashboard/user/me";
+      preLoaderRoute: typeof ProtectedDashboardUserMeRouteImport;
+      parentRoute: typeof ProtectedDashboardRoute;
+    };
   }
 }
 
 interface ProtectedDashboardRouteChildren {
-  ProtectedDashboardIndexRoute: typeof ProtectedDashboardIndexRoute
+  ProtectedDashboardIndexRoute: typeof ProtectedDashboardIndexRoute;
+  ProtectedDashboardUserMeRoute: typeof ProtectedDashboardUserMeRoute;
 }
 
 const ProtectedDashboardRouteChildren: ProtectedDashboardRouteChildren = {
   ProtectedDashboardIndexRoute: ProtectedDashboardIndexRoute,
-}
+  ProtectedDashboardUserMeRoute: ProtectedDashboardUserMeRoute,
+};
 
 const ProtectedDashboardRouteWithChildren =
-  ProtectedDashboardRoute._addFileChildren(ProtectedDashboardRouteChildren)
+  ProtectedDashboardRoute._addFileChildren(ProtectedDashboardRouteChildren);
 
 interface ProtectedRouteChildren {
-  ProtectedDashboardRoute: typeof ProtectedDashboardRouteWithChildren
+  ProtectedDashboardRoute: typeof ProtectedDashboardRouteWithChildren;
 }
 
 const ProtectedRouteChildren: ProtectedRouteChildren = {
   ProtectedDashboardRoute: ProtectedDashboardRouteWithChildren,
-}
+};
 
 const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
   ProtectedRouteChildren,
-)
+);
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ProtectedRoute: ProtectedRouteWithChildren,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
+import type { getRouter } from "./router.tsx";
+import type { createStart } from "@tanstack/react-start";
+declare module "@tanstack/react-start" {
   interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
+    ssr: true;
+    router: Awaited<ReturnType<typeof getRouter>>;
   }
 }

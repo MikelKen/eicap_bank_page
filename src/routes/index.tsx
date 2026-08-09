@@ -63,11 +63,11 @@ function RouteComponent() {
                 e.stopPropagation();
                 form.handleSubmit();
               }}
-              className="p-6 md:p-8"
+              className="p-6 md:p-10 flex flex-col justify-center"
             >
-              <FieldGroup>
-                <div className="flex flex-col items-center gap-2 text-center">
-                  <h1 className="text-2xl font-bold">Welcome back</h1>
+              <FieldGroup className="gap-5">
+                <div className="flex flex-col items-center gap-2 text-center mb-2">
+                  <h1 className="text-2xl font-bold">Welcome</h1>
                   <p className="text-balance text-muted-foreground">
                     Login to your account
                   </p>
@@ -82,9 +82,7 @@ function RouteComponent() {
                 >
                   {(field) => (
                     <Field>
-                      <FieldLabel htmlFor="identifier">
-                        Email or username
-                      </FieldLabel>
+                      <FieldLabel htmlFor="identifier">Email</FieldLabel>
                       <Input
                         id="identifier"
                         type="text"
@@ -145,16 +143,17 @@ function RouteComponent() {
                 </form.Subscribe>
 
                 <FieldDescription className="text-center">
-                  Terms
+                  ESCUELA DE INNOVACIÓN, CAPACITACIÓN Y ASESORAMIENTO
+                  PROFESIONAL
                 </FieldDescription>
               </FieldGroup>
             </form>
 
-            <div className="relative hidden bg-muted md:block">
+            <div className="relative hidden md:flex items-center justify-center bg-gradient-to-br from-slate-500/20 to-slate-900/40 backdrop-blur-md p-4">
               <img
-                src="/eicap.png"
-                alt=""
-                className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+                src="/image.png"
+                alt="Eicap"
+                className="w-full h-full object-contain drop-shadow-2xl"
               />
             </div>
           </CardContent>
