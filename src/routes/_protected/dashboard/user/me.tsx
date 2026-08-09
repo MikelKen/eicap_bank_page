@@ -1,15 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Temporal } from "temporal-polyfill";
 import { ImageField } from "#/components/image/field.image";
 import { Avatar, AvatarFallback, AvatarImage } from "#/components/ui/avatar";
-import { Button } from "#/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "#/components/ui/card";
 import { Separator } from "#/components/ui/separator";
-import {
-  useMeDeleteAvatarMutation,
-  useMeUpdateAvatarMutation,
-} from "#/hooks/user/useMutation.user";
 import { useMeQuery } from "#/hooks/user/useQuery.user";
 import { cn } from "#/lib/utils";
 
@@ -25,7 +20,7 @@ function formatDate(
   });
 }
 
-export const Route = createFileRoute("/_protected/_dashboard/user/me")({
+export const Route = createFileRoute("/_protected/dashboard/user/me")({
   component: MePage,
 });
 
@@ -42,13 +37,13 @@ const ROLE_STYLES: Record<string, { label: string; className: string }> = {
 
 function MePage() {
   const { data: meData } = useMeQuery();
-  const updateAvatarMutation = useMeUpdateAvatarMutation();
-  const deleteAvatarMutation = useMeDeleteAvatarMutation();
+  // const updateAvatarMutation = useMeUpdateAvatarMutation();
+  // const deleteAvatarMutation = useMeDeleteAvatarMutation();
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
-  useEffect(() => {
-    if (updateAvatarMutation.isSuccess) setAvatarFile(null);
-  }, [updateAvatarMutation.isSuccess]);
+  // useEffect(() => {
+  //   if (updateAvatarMutation.isSuccess) setAvatarFile(null);
+  // }, [updateAvatarMutation.isSuccess]);
 
   const user = meData;
 
@@ -77,14 +72,14 @@ function MePage() {
     className: "border-gray-500 text-gray-600 bg-gray-50",
   };
 
-  function handleAvatarUpload() {
-    if (!avatarFile) return;
-    updateAvatarMutation.mutate(avatarFile);
-  }
+  // function handleAvatarUpload() {
+  //   if (!avatarFile) return;
+  //   updateAvatarMutation.mutate(avatarFile);
+  // }
 
-  function handleAvatarDelete() {
-    deleteAvatarMutation.mutate(undefined);
-  }
+  // function handleAvatarDelete() {
+  //   deleteAvatarMutation.mutate(undefined);
+  // }
 
   return (
     <div className="flex flex-1 flex-col gap-4">
@@ -97,9 +92,7 @@ function MePage() {
             </Avatar>
             <div>
               <CardTitle>{user.name}</CardTitle>
-              <p className="text-sm text-muted-foreground">
-                {user.email || user.username}
-              </p>
+              <p className="text-sm text-muted-foreground">{user.email}</p>
             </div>
           </div>
         </CardHeader>
@@ -108,19 +101,13 @@ function MePage() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="space-y-1">
               <p className="text-xs font-medium text-muted-foreground">
-                Usuario
+                Nombre
               </p>
-              <p className="text-sm">{user.username || "—"}</p>
+              <p className="text-sm">{user.name || "—"}</p>
             </div>
             <div className="space-y-1">
               <p className="text-xs font-medium text-muted-foreground">Email</p>
               <p className="text-sm">{user.email || "—"}</p>
-            </div>
-            <div className="space-y-1">
-              <p className="text-xs font-medium text-muted-foreground">
-                Teléfono
-              </p>
-              <p className="text-sm">{user.phone || "—"}</p>
             </div>
             <div className="space-y-1">
               <p className="text-xs font-medium text-muted-foreground">Rol</p>
@@ -159,7 +146,7 @@ function MePage() {
               placeholder="Arrastrá tu avatar aquí"
             />
             <div className="flex gap-2">
-              <Button
+              {/* <Button
                 type="button"
                 size="sm"
                 disabled={!avatarFile || updateAvatarMutation.isPending}
@@ -168,8 +155,8 @@ function MePage() {
                 {updateAvatarMutation.isPending
                   ? "Subiendo..."
                   : "Guardar avatar"}
-              </Button>
-              {user.avatar && (
+              </Button> */}
+              {/* {user.avatar && (
                 <Button
                   type="button"
                   size="sm"
@@ -181,7 +168,7 @@ function MePage() {
                     ? "Eliminando..."
                     : "Eliminar avatar"}
                 </Button>
-              )}
+              )} */}
             </div>
           </div>
         </CardContent>

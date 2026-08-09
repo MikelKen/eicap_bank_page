@@ -8,7 +8,7 @@ import {
 } from "#/components/ui/sidebar";
 import { useSidebarStore } from "#/stores/sidebar.store";
 
-export const Route = createFileRoute("/_protected/_dashboard")({
+export const Route = createFileRoute("/_protected/dashboard")({
   component: DashboardLayout,
 });
 
