@@ -14,6 +14,7 @@ import { Route as ProtectedRouteImport } from './routes/_protected'
 import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
 import { Route as ProtectedDashboardRouteImport } from './routes/_protected/dashboard'
 import { Route as ProtectedDashboardIndexRouteImport } from './routes/_protected/dashboard/index'
+import { Route as ProtectedDashboardUserClientRouteImport } from './routes/_protected/dashboard/user/client'
 import { Route as ProtectedDashboardUserMeRouteImport } from './routes/_protected/dashboard/user/me'
 
 const IndexRoute = IndexRouteImport.update({
@@ -40,6 +41,12 @@ const ProtectedDashboardIndexRoute = ProtectedDashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ProtectedDashboardRoute,
 } as any)
+const ProtectedDashboardUserClientRoute =
+  ProtectedDashboardUserClientRouteImport.update({
+    id: '/user/client',
+    path: '/user/client',
+    getParentRoute: () => ProtectedDashboardRoute,
+  } as any)
 const ProtectedDashboardUserMeRoute =
   ProtectedDashboardUserMeRouteImport.update({
     id: '/user/me',
@@ -52,12 +59,14 @@ export interface FileRoutesByFullPath {
   '/unauthorized': typeof UnauthorizedRoute
   '/dashboard': typeof ProtectedDashboardRouteWithChildren
   '/dashboard/': typeof ProtectedDashboardIndexRoute
+  '/dashboard/user/client': typeof ProtectedDashboardUserClientRoute
   '/dashboard/user/me': typeof ProtectedDashboardUserMeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/unauthorized': typeof UnauthorizedRoute
   '/dashboard': typeof ProtectedDashboardIndexRoute
+  '/dashboard/user/client': typeof ProtectedDashboardUserClientRoute
   '/dashboard/user/me': typeof ProtectedDashboardUserMeRoute
 }
 export interface FileRoutesById {
@@ -67,14 +76,25 @@ export interface FileRoutesById {
   '/unauthorized': typeof UnauthorizedRoute
   '/_protected/dashboard': typeof ProtectedDashboardRouteWithChildren
   '/_protected/dashboard/': typeof ProtectedDashboardIndexRoute
+  '/_protected/dashboard/user/client': typeof ProtectedDashboardUserClientRoute
   '/_protected/dashboard/user/me': typeof ProtectedDashboardUserMeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/unauthorized' | '/dashboard' | '/dashboard/' | '/dashboard/user/me'
+    | '/'
+    | '/unauthorized'
+    | '/dashboard'
+    | '/dashboard/'
+    | '/dashboard/user/client'
+    | '/dashboard/user/me'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/unauthorized' | '/dashboard' | '/dashboard/user/me'
+  to:
+    | '/'
+    | '/unauthorized'
+    | '/dashboard'
+    | '/dashboard/user/client'
+    | '/dashboard/user/me'
   id:
     | '__root__'
     | '/'
@@ -82,6 +102,7 @@ export interface FileRouteTypes {
     | '/unauthorized'
     | '/_protected/dashboard'
     | '/_protected/dashboard/'
+    | '/_protected/dashboard/user/client'
     | '/_protected/dashboard/user/me'
   fileRoutesById: FileRoutesById
 }
@@ -128,6 +149,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedDashboardIndexRouteImport
       parentRoute: typeof ProtectedDashboardRoute
     }
+    '/_protected/dashboard/user/client': {
+      id: '/_protected/dashboard/user/client'
+      path: '/user/client'
+      fullPath: '/dashboard/user/client'
+      preLoaderRoute: typeof ProtectedDashboardUserClientRouteImport
+      parentRoute: typeof ProtectedDashboardRoute
+    }
     '/_protected/dashboard/user/me': {
       id: '/_protected/dashboard/user/me'
       path: '/user/me'
@@ -140,11 +168,13 @@ declare module '@tanstack/react-router' {
 
 interface ProtectedDashboardRouteChildren {
   ProtectedDashboardIndexRoute: typeof ProtectedDashboardIndexRoute
+  ProtectedDashboardUserClientRoute: typeof ProtectedDashboardUserClientRoute
   ProtectedDashboardUserMeRoute: typeof ProtectedDashboardUserMeRoute
 }
 
 const ProtectedDashboardRouteChildren: ProtectedDashboardRouteChildren = {
   ProtectedDashboardIndexRoute: ProtectedDashboardIndexRoute,
+  ProtectedDashboardUserClientRoute: ProtectedDashboardUserClientRoute,
   ProtectedDashboardUserMeRoute: ProtectedDashboardUserMeRoute,
 }
 
