@@ -1,3 +1,4 @@
+//routes/index.tsx
 import { useForm } from "@tanstack/react-form";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
@@ -23,8 +24,8 @@ function RouteComponent() {
   useEffect(() => {
     console.log("[LoginPage] useEffect — isSuccess changed:", login.isSuccess);
     if (login.isSuccess) {
-      console.log("[LoginPage] navigating to /user/me");
-      navigate({ to: "/user/me" });
+      console.log("[LoginPage] navigating to /dashboard");
+      navigate({ to: "/dashboard" });
     }
   }, [login.isSuccess, navigate]);
 
