@@ -113,7 +113,7 @@ function UserPage() {
       typeof updater === "function" ? updater(sortingState) : updater;
     const sort = next[0];
     navigate({
-      from: "/user/",
+      from: "/dashboard/user/",
       search: {
         ...search,
         sort: sort?.id ?? "created_at",
@@ -132,7 +132,7 @@ function UserPage() {
     const next =
       typeof updater === "function" ? updater(paginationState) : updater;
     navigate({
-      from: "/user/",
+      from: "/dashboard/user/",
       search: {
         ...search,
         page: next.pageIndex + 1,
@@ -146,7 +146,7 @@ function UserPage() {
 
   const setRole = (role: string) => {
     navigate({
-      from: "/user/",
+      from: "/dashboard/user/",
       search: {
         ...search,
         roles: role === "all" ? undefined : role,
@@ -164,7 +164,7 @@ function UserPage() {
           value={search.name ?? ""}
           onChange={(e) => {
             navigate({
-              from: "/user/",
+              from: "/dashboard/user/",
               search: { ...search, name: e.target.value || undefined, page: 1 },
               replace: true,
             });

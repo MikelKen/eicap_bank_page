@@ -78,6 +78,7 @@ function DialogInstance({
   return (
     <Dialog
       open
+      disablePointerDismissal
       onOpenChange={(open) => {
         if (!open) onClose();
       }}
@@ -89,15 +90,6 @@ function DialogInstance({
           left: `calc(50% + ${dialog.offset.x}px)`,
           transform: "translate(-50%, -50%)",
           width: dialog.width,
-        }}
-        onEscapeKeyDown={(e) => {
-          const top = useDialog.getState().stack;
-          if (top[top.length - 1]?.id !== dialog.id) {
-            e.preventDefault();
-          }
-        }}
-        onPointerDownOutside={(e) => {
-          e.preventDefault();
         }}
       >
         <DialogHeader

@@ -15,7 +15,15 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
+
+function isActivePath(currentPath: string, targetPath: string) {
+  if (targetPath === "/dashboard") {
+    return currentPath === targetPath;
+  }
+
+  return currentPath === targetPath || currentPath.startsWith(`${targetPath}/`);
+}
 
 export function NavMain({
   items,
@@ -31,6 +39,8 @@ export function NavMain({
     }[];
   }[];
 }) {
+  const { pathname } = useLocation();
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -41,6 +51,7 @@ export function NavMain({
               <SidebarMenuButton
                 render={<Link to={item.url} />}
                 tooltip={item.title}
+                isActive={isActivePath(pathname, item.url)}
               >
                 <item.icon />
                 <span>{item.title}</span>
@@ -60,6 +71,7 @@ export function NavMain({
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton
                             render={<Link to={subItem.url} />}
+                            isActive={isActivePath(pathname, subItem.url)}
                           >
                             <span>{subItem.title}</span>
                           </SidebarMenuSubButton>

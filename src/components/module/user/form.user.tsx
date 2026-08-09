@@ -1,19 +1,32 @@
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import type { DialogContentProps } from "@/stores/dialog.store";
+import { useUserCreateMutation } from "#/hooks/user/useMutation.user";
+import * as ShadcnSelect from "#/components/ui/select";
+import { usePermission } from "#/stores/permission.store";
 
-export function FormUser() {
+interface FormUserProps {
+  dialogId: string;
+}
+
+const ROLE_OPTIONS = [
+  { label: "Admin", value: "admin" },
+  { label: "Estudiante", value: "student" },
+] as const;
+
+export function FormUser({ dialogId }: FormUserProps) {
+  const mutation = useUserCreateMutation(dialogId);
+  const permission = usePermission((s) => s.permission);
+
   return (
     <DialogContent className="sm:max-w-sm">
       <form
@@ -42,13 +55,20 @@ export function FormUser() {
               placeholder="m@example.com"
             />
           </Field>
+          <Field>
+            <Label htmlFor="password-1">Password</Label>
+            <Input
+              id="password-1"
+              name="password"
+              type="password"
+              placeholder="••••••••"
+            />
+          </Field>
         </FieldGroup>
         <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline" type="button">
-              Cancelar
-            </Button>
-          </DialogClose>
+          <Button variant="outline" type="button" onClick={close}>
+            Cancelar
+          </Button>
           <Button type="submit">Guardar</Button>
         </DialogFooter>
       </form>
