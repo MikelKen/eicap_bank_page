@@ -1,4 +1,5 @@
 import {
+  type CreateUser,
   type FindAllResponse,
   type UserFilter,
   UserListPaginatedSchema,
@@ -8,6 +9,7 @@ import {
 import { api } from "#/lib/api";
 import { parseResponse } from "../type";
 import { ENDPOINTS } from "../endpoints";
+import { z } from "zod";
 
 class UserService {
   async findAll(filter: UserFilter): Promise<FindAllResponse> {
@@ -23,6 +25,25 @@ class UserService {
     const result = await parseResponse(api.get(ENDPOINTS.USERS.ME), UserSchema);
 
     return result.data;
+  }
+
+  async create(input: CreateUser, avatar?: File) {
+    const fd = new FormData();
+    for (const [key, value] of Object.entries(input)) {
+      if (value !== undefined && value !== null) {
+        fd.append(key, String(value));
+      }
+    }
+    if (avatar) {
+      fd.append("avatar", avatar);
+    }
+
+    const result = await parseResponse(
+      api.post(ENDPOINTS.USERS.BASE, fd),
+      z.null(),
+    );
+
+    return result;
   }
 }
 

@@ -38,7 +38,7 @@ const CreateUserSchema = z.object({
 
 type CreateUser = z.infer<typeof CreateUserSchema>;
 
-type CreateUserInput = { data: CreateUser };
+type CreateUserInput = { data: CreateUser; avatar?: File };
 
 const UserListPaginatedSchema = PaginatedResponse(UserSchema);
 
