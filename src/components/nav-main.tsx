@@ -36,11 +36,12 @@ export function NavMain({
         {items.map((item) => (
           <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
             <SidebarMenuItem>
-              <SidebarMenuButton render={<a href="#" />} tooltip={item.title}>
-                <a href={item.url}>
-                  <item.icon />
-                  <span>{item.title}</span>
-                </a>
+              <SidebarMenuButton
+                render={<a href={item.url} />}
+                tooltip={item.title}
+              >
+                <item.icon />
+                <span>{item.title}</span>
               </SidebarMenuButton>
               {item.items?.length ? (
                 <>
@@ -54,10 +55,10 @@ export function NavMain({
                     <SidebarMenuSub>
                       {item.items?.map((subItem) => (
                         <SidebarMenuSubItem key={subItem.title}>
-                          <SidebarMenuSubButton render={<a href="#" />}>
-                            <a href={subItem.url}>
-                              <span>{subItem.title}</span>
-                            </a>
+                          <SidebarMenuSubButton
+                            render={<a href={subItem.url} />}
+                          >
+                            <span>{subItem.title}</span>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
                       ))}
