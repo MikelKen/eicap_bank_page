@@ -11,6 +11,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { Link } from "@tanstack/react-router";
 import { useAuthStore } from "@/stores/auth.store";
 import { usePermission } from "@/stores/permission.store";
 
@@ -47,7 +48,7 @@ const NAV_ITEMS: NavItem[] = [
     items: [
       {
         title: "Clientes",
-        url: "/dashboard/user/client",
+        url: "/dashboard/user/account",
         allowedRoles: ["admin"],
       },
       {
@@ -119,7 +120,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" render={<a href="/" />}>
+            <SidebarMenuButton size="lg" render={<Link to="/" />}>
               <>
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   <Command className="size-4" />

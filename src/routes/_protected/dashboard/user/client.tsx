@@ -5,5 +5,5 @@ export const Route = createFileRoute("/_protected/dashboard/user/client")({
 });
 
 function RouteComponent() {
-  return <div> VIEW CLIENT</div>;
+  return <div> VIEW ACCOUNT</div>;
 }

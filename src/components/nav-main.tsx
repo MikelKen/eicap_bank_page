@@ -15,6 +15,8 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
+import { Link } from "@tanstack/react-router";
+
 export function NavMain({
   items,
 }: {
@@ -37,12 +39,13 @@ export function NavMain({
           <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
             <SidebarMenuItem>
               <SidebarMenuButton
-                render={<a href={item.url} />}
+                render={<Link to={item.url} />}
                 tooltip={item.title}
               >
                 <item.icon />
                 <span>{item.title}</span>
               </SidebarMenuButton>
+
               {item.items?.length ? (
                 <>
                   <CollapsibleTrigger asChild>
@@ -56,7 +59,7 @@ export function NavMain({
                       {item.items?.map((subItem) => (
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton
-                            render={<a href={subItem.url} />}
+                            render={<Link to={subItem.url} />}
                           >
                             <span>{subItem.title}</span>
                           </SidebarMenuSubButton>
