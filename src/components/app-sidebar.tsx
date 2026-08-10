@@ -43,37 +43,37 @@ const NAV_ITEMS: NavItem[] = [
   {
     title: "Usuarios",
     url: "/dashboard/user",
-    icon: Home,
+    icon: UserRound,
     isActive: true,
     allowedRoles: ["admin"],
   },
   {
     title: "Operaciones Bancarias",
-    url: "/dashboard/user/client",
+    url: "/dashboard",
     icon: Bot,
     allowedRoles: ["admin"],
     items: [
       {
         title: "Clientes",
-        url: "/dashboard/user/account",
+        url: "/dashboard/client",
         allowedRoles: ["admin"],
       },
       {
         title: "Reportes de Cierre de Caja",
-        url: "/dashboard/user/client",
+        url: "/dashboard",
         allowedRoles: ["admin"],
       },
     ],
   },
   {
     title: "Creditos",
-    url: "/dashboard/user/me",
+    url: "/dashboard",
     icon: UserRound,
     allowedRoles: ["admin", "student"],
     items: [
       {
         title: "Calcular Credito",
-        url: "/dashboard/user/client",
+        url: "/dashboard",
         allowedRoles: ["admin"],
       },
     ],

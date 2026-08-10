@@ -17,7 +17,6 @@ class UserService {
       api.get(ENDPOINTS.USERS.BASE, { params: filter }),
       UserListPaginatedSchema,
     );
-    console.log("[API] findAll result:", result);
 
     return result;
   }

@@ -6,4 +6,8 @@ export const ENDPOINTS = {
     BASE: "/users",
     ME: "/users/me",
   },
+  CLIENTS: {
+    BASE: "/clients",
+    MINE: "/clients/mine",
+  },
 };

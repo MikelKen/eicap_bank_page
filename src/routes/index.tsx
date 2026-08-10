@@ -1,7 +1,7 @@
 //routes/index.tsx
 import { useForm } from "@tanstack/react-form";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "#/components/ui/button";
 import { Card, CardContent } from "#/components/ui/card";
 import {
@@ -12,6 +12,7 @@ import {
 } from "#/components/ui/field";
 import { Input } from "#/components/ui/input";
 import { useAuthLoginMutation } from "#/hooks/auth/useMutation.auth";
+import { Eye, EyeOff } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -20,6 +21,7 @@ export const Route = createFileRoute("/")({
 function RouteComponent() {
   const login = useAuthLoginMutation();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     console.log("[LoginPage] useEffect — isSuccess changed:", login.isSuccess);
@@ -106,18 +108,37 @@ function RouteComponent() {
                   {(field) => (
                     <Field>
                       <FieldLabel htmlFor="password">Password</FieldLabel>
-                      <Input
-                        id="password"
-                        type="password"
-                        required
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                      />
+                      <div className="relative">
+                        <Input
+                          id="password"
+                          type={showPassword ? "text" : "password"}
+                          required
+                          className="pr-10"
+                          value={field.state.value}
+                          onBlur={field.handleBlur}
+                          onChange={(e) => field.handleChange(e.target.value)}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword((prev) => !prev)}
+                          className="absolute right-0 top-0 h-full px-3 flex items-center text-muted-foreground hover:text-foreground"
+                          tabIndex={-1}
+                        >
+                          {showPassword ? (
+                            <EyeOff className="size-4" />
+                          ) : (
+                            <Eye className="size-4" />
+                          )}
+                          <span className="sr-only">
+                            {showPassword
+                              ? "Ocultar contraseña"
+                              : "Mostrar contraseña"}
+                          </span>
+                        </button>
+                      </div>
                     </Field>
                   )}
                 </form.Field>
-
                 {login.isError && (
                   <p className="text-sm text-destructive text-center">
                     Invalid credentials

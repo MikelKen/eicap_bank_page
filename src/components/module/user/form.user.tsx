@@ -20,6 +20,8 @@ import { useUserCreateMutation } from "#/hooks/user/useMutation.user";
 import type { DialogContentProps } from "@/stores/dialog.store";
 import { useState } from "react";
 import type { Permission } from "#/lib/permission";
+import { EyeOff } from "lucide-react";
+import { Eye } from "lucide-react";
 
 const ROLE_OPTIONS = [
   { label: "Admin", value: "admin" },
@@ -29,6 +31,7 @@ const ROLE_OPTIONS = [
 export function FormUser({ dialogId, close }: DialogContentProps) {
   const mutation = useUserCreateMutation(dialogId);
   const [role, setRole] = useState<Permission>("student");
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <DialogContent className="sm:max-w-sm">
@@ -72,12 +75,30 @@ export function FormUser({ dialogId, close }: DialogContentProps) {
           </Field>
           <Field>
             <Label htmlFor="password-1">Password</Label>
-            <Input
-              id="password-1"
-              name="password"
-              type="password"
-              placeholder="••••••••"
-            />
+            <div className="relative">
+              <Input
+                id="password-1"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="••••••••"
+                className="pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-0 top-0 h-full px-3 flex items-center text-muted-foreground hover:text-foreground"
+                tabIndex={-1}
+              >
+                {showPassword ? (
+                  <EyeOff className="size-4" />
+                ) : (
+                  <Eye className="size-4" />
+                )}
+                <span className="sr-only">
+                  {showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                </span>
+              </button>
+            </div>
           </Field>
           <Field>
             <Label htmlFor="role-1">Rol</Label>
@@ -98,7 +119,7 @@ export function FormUser({ dialogId, close }: DialogContentProps) {
             </Select>
           </Field>
         </FieldGroup>
-        <DialogFooter>
+        <DialogFooter className="mt-4">
           <Button variant="outline" type="button" onClick={close}>
             Cancelar
           </Button>
