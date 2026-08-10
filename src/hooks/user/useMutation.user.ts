@@ -11,8 +11,7 @@ export const useUserCreateMutation = (dialogId?: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ data, avatar }: CreateUserInput) =>
-      userService.create(data, avatar),
+    mutationFn: (data: CreateUserInput) => userService.create(data),
     onMutate: () => {
       useLoader.getState().show("Creando usuario...");
     },

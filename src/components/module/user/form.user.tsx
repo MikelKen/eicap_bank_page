@@ -9,30 +9,45 @@ import {
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import type { DialogContentProps } from "@/stores/dialog.store";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useUserCreateMutation } from "#/hooks/user/useMutation.user";
-import * as ShadcnSelect from "#/components/ui/select";
-import { usePermission } from "#/stores/permission.store";
-
-interface FormUserProps {
-  dialogId: string;
-}
+import type { DialogContentProps } from "@/stores/dialog.store";
+import { useState } from "react";
+import type { Permission } from "#/lib/permission";
 
 const ROLE_OPTIONS = [
   { label: "Admin", value: "admin" },
   { label: "Estudiante", value: "student" },
 ] as const;
 
-export function FormUser({ dialogId }: FormUserProps) {
+export function FormUser({ dialogId, close }: DialogContentProps) {
   const mutation = useUserCreateMutation(dialogId);
-  const permission = usePermission((s) => s.permission);
+  const [role, setRole] = useState<Permission>("student");
 
   return (
     <DialogContent className="sm:max-w-sm">
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          // TODO: llamar a tu mutation de crear usuario aquí
+          const form = e.currentTarget;
+          const formData = new FormData(form);
+
+          const name = String(formData.get("name") ?? "").trim();
+          const email = String(formData.get("email") ?? "").trim();
+          const password = String(formData.get("password") ?? "").trim();
+
+          mutation.mutate({
+            name,
+            email,
+            password,
+            role,
+          });
         }}
       >
         <DialogHeader>
@@ -64,12 +79,32 @@ export function FormUser({ dialogId }: FormUserProps) {
               placeholder="••••••••"
             />
           </Field>
+          <Field>
+            <Label htmlFor="role-1">Rol</Label>
+            <Select
+              value={role}
+              onValueChange={(value) => setRole(value as Permission)}
+            >
+              <SelectTrigger id="role-1" className="w-full">
+                <SelectValue placeholder="Selecciona un rol" />
+              </SelectTrigger>
+              <SelectContent>
+                {ROLE_OPTIONS.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </Field>
         </FieldGroup>
         <DialogFooter>
           <Button variant="outline" type="button" onClick={close}>
             Cancelar
           </Button>
-          <Button type="submit">Guardar</Button>
+          <Button type="submit" disabled={mutation.isPending}>
+            {mutation.isPending ? "Guardando..." : "Guardar"}
+          </Button>
         </DialogFooter>
       </form>
     </DialogContent>

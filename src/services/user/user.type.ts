@@ -33,12 +33,12 @@ const CreateUserSchema = z.object({
   name: z.string().min(1, "Nombre es requerido"),
   email: z.string().email("Email inválido"),
   password: z.string().min(1, "Contraseña es requerida"),
-  role: z.enum(["admin", "strudent"], "Rol inválido"),
+  role: z.enum(["admin", "student"], "Rol inválido"),
 });
 
 type CreateUser = z.infer<typeof CreateUserSchema>;
 
-type CreateUserInput = { data: CreateUser; avatar?: File };
+type CreateUserInput = CreateUser;
 
 const UserListPaginatedSchema = PaginatedResponse(UserSchema);
 

@@ -17,6 +17,7 @@ class UserService {
       api.get(ENDPOINTS.USERS.BASE, { params: filter }),
       UserListPaginatedSchema,
     );
+    console.log("[API] findAll result:", result);
 
     return result;
   }
@@ -27,19 +28,9 @@ class UserService {
     return result.data;
   }
 
-  async create(input: CreateUser, avatar?: File) {
-    const fd = new FormData();
-    for (const [key, value] of Object.entries(input)) {
-      if (value !== undefined && value !== null) {
-        fd.append(key, String(value));
-      }
-    }
-    if (avatar) {
-      fd.append("avatar", avatar);
-    }
-
+  async create(input: CreateUser) {
     const result = await parseResponse(
-      api.post(ENDPOINTS.USERS.BASE, fd),
+      api.post(ENDPOINTS.USERS.BASE, input),
       z.null(),
     );
 
