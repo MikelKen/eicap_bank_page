@@ -14,6 +14,9 @@ const config = defineConfig({
       spa: {
         enabled: true,
       },
+      importProtection: {
+        enabled: false,
+      },
     }),
     nitro(),
     viteReact(),
