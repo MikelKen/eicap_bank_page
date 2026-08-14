@@ -18,6 +18,8 @@ import { Route as ProtectedDashboardAccountIndexRouteImport } from './routes/_pr
 import { Route as ProtectedDashboardCashClosingIndexRouteImport } from './routes/_protected/dashboard/cash-closing/index'
 import { Route as ProtectedDashboardClientIndexRouteImport } from './routes/_protected/dashboard/client/index'
 import { Route as ProtectedDashboardClientClientIdRouteImport } from './routes/_protected/dashboard/client/$clientId'
+import { Route as ProtectedDashboardCreditIndexRouteImport } from './routes/_protected/dashboard/credit/index'
+import { Route as ProtectedDashboardCreditClientIdRouteImport } from './routes/_protected/dashboard/credit/$clientId'
 import { Route as ProtectedDashboardUserIndexRouteImport } from './routes/_protected/dashboard/user/index'
 import { Route as ProtectedDashboardUserMeRouteImport } from './routes/_protected/dashboard/user/me'
 
@@ -69,6 +71,18 @@ const ProtectedDashboardClientClientIdRoute =
     path: '/client/$clientId',
     getParentRoute: () => ProtectedDashboardRoute,
   } as any)
+const ProtectedDashboardCreditIndexRoute =
+  ProtectedDashboardCreditIndexRouteImport.update({
+    id: '/credit/',
+    path: '/credit/',
+    getParentRoute: () => ProtectedDashboardRoute,
+  } as any)
+const ProtectedDashboardCreditClientIdRoute =
+  ProtectedDashboardCreditClientIdRouteImport.update({
+    id: '/credit/$clientId',
+    path: '/credit/$clientId',
+    getParentRoute: () => ProtectedDashboardRoute,
+  } as any)
 const ProtectedDashboardUserIndexRoute =
   ProtectedDashboardUserIndexRouteImport.update({
     id: '/user/',
@@ -88,10 +102,12 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof ProtectedDashboardRouteWithChildren
   '/dashboard/': typeof ProtectedDashboardIndexRoute
   '/dashboard/client/$clientId': typeof ProtectedDashboardClientClientIdRoute
+  '/dashboard/credit/$clientId': typeof ProtectedDashboardCreditClientIdRoute
   '/dashboard/user/me': typeof ProtectedDashboardUserMeRoute
   '/dashboard/account/': typeof ProtectedDashboardAccountIndexRoute
   '/dashboard/cash-closing/': typeof ProtectedDashboardCashClosingIndexRoute
   '/dashboard/client/': typeof ProtectedDashboardClientIndexRoute
+  '/dashboard/credit/': typeof ProtectedDashboardCreditIndexRoute
   '/dashboard/user/': typeof ProtectedDashboardUserIndexRoute
 }
 export interface FileRoutesByTo {
@@ -99,10 +115,12 @@ export interface FileRoutesByTo {
   '/unauthorized': typeof UnauthorizedRoute
   '/dashboard': typeof ProtectedDashboardIndexRoute
   '/dashboard/client/$clientId': typeof ProtectedDashboardClientClientIdRoute
+  '/dashboard/credit/$clientId': typeof ProtectedDashboardCreditClientIdRoute
   '/dashboard/user/me': typeof ProtectedDashboardUserMeRoute
   '/dashboard/account': typeof ProtectedDashboardAccountIndexRoute
   '/dashboard/cash-closing': typeof ProtectedDashboardCashClosingIndexRoute
   '/dashboard/client': typeof ProtectedDashboardClientIndexRoute
+  '/dashboard/credit': typeof ProtectedDashboardCreditIndexRoute
   '/dashboard/user': typeof ProtectedDashboardUserIndexRoute
 }
 export interface FileRoutesById {
@@ -113,10 +131,12 @@ export interface FileRoutesById {
   '/_protected/dashboard': typeof ProtectedDashboardRouteWithChildren
   '/_protected/dashboard/': typeof ProtectedDashboardIndexRoute
   '/_protected/dashboard/client/$clientId': typeof ProtectedDashboardClientClientIdRoute
+  '/_protected/dashboard/credit/$clientId': typeof ProtectedDashboardCreditClientIdRoute
   '/_protected/dashboard/user/me': typeof ProtectedDashboardUserMeRoute
   '/_protected/dashboard/account/': typeof ProtectedDashboardAccountIndexRoute
   '/_protected/dashboard/cash-closing/': typeof ProtectedDashboardCashClosingIndexRoute
   '/_protected/dashboard/client/': typeof ProtectedDashboardClientIndexRoute
+  '/_protected/dashboard/credit/': typeof ProtectedDashboardCreditIndexRoute
   '/_protected/dashboard/user/': typeof ProtectedDashboardUserIndexRoute
 }
 export interface FileRouteTypes {
@@ -127,10 +147,12 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/dashboard/'
     | '/dashboard/client/$clientId'
+    | '/dashboard/credit/$clientId'
     | '/dashboard/user/me'
     | '/dashboard/account/'
     | '/dashboard/cash-closing/'
     | '/dashboard/client/'
+    | '/dashboard/credit/'
     | '/dashboard/user/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -138,10 +160,12 @@ export interface FileRouteTypes {
     | '/unauthorized'
     | '/dashboard'
     | '/dashboard/client/$clientId'
+    | '/dashboard/credit/$clientId'
     | '/dashboard/user/me'
     | '/dashboard/account'
     | '/dashboard/cash-closing'
     | '/dashboard/client'
+    | '/dashboard/credit'
     | '/dashboard/user'
   id:
     | '__root__'
@@ -151,10 +175,12 @@ export interface FileRouteTypes {
     | '/_protected/dashboard'
     | '/_protected/dashboard/'
     | '/_protected/dashboard/client/$clientId'
+    | '/_protected/dashboard/credit/$clientId'
     | '/_protected/dashboard/user/me'
     | '/_protected/dashboard/account/'
     | '/_protected/dashboard/cash-closing/'
     | '/_protected/dashboard/client/'
+    | '/_protected/dashboard/credit/'
     | '/_protected/dashboard/user/'
   fileRoutesById: FileRoutesById
 }
@@ -229,6 +255,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedDashboardClientClientIdRouteImport
       parentRoute: typeof ProtectedDashboardRoute
     }
+    '/_protected/dashboard/credit/': {
+      id: '/_protected/dashboard/credit/'
+      path: '/credit'
+      fullPath: '/dashboard/credit/'
+      preLoaderRoute: typeof ProtectedDashboardCreditIndexRouteImport
+      parentRoute: typeof ProtectedDashboardRoute
+    }
+    '/_protected/dashboard/credit/$clientId': {
+      id: '/_protected/dashboard/credit/$clientId'
+      path: '/credit/$clientId'
+      fullPath: '/dashboard/credit/$clientId'
+      preLoaderRoute: typeof ProtectedDashboardCreditClientIdRouteImport
+      parentRoute: typeof ProtectedDashboardRoute
+    }
     '/_protected/dashboard/user/': {
       id: '/_protected/dashboard/user/'
       path: '/user'
@@ -249,21 +289,25 @@ declare module '@tanstack/react-router' {
 interface ProtectedDashboardRouteChildren {
   ProtectedDashboardIndexRoute: typeof ProtectedDashboardIndexRoute
   ProtectedDashboardClientClientIdRoute: typeof ProtectedDashboardClientClientIdRoute
+  ProtectedDashboardCreditClientIdRoute: typeof ProtectedDashboardCreditClientIdRoute
   ProtectedDashboardUserMeRoute: typeof ProtectedDashboardUserMeRoute
   ProtectedDashboardAccountIndexRoute: typeof ProtectedDashboardAccountIndexRoute
   ProtectedDashboardCashClosingIndexRoute: typeof ProtectedDashboardCashClosingIndexRoute
   ProtectedDashboardClientIndexRoute: typeof ProtectedDashboardClientIndexRoute
+  ProtectedDashboardCreditIndexRoute: typeof ProtectedDashboardCreditIndexRoute
   ProtectedDashboardUserIndexRoute: typeof ProtectedDashboardUserIndexRoute
 }
 
 const ProtectedDashboardRouteChildren: ProtectedDashboardRouteChildren = {
   ProtectedDashboardIndexRoute: ProtectedDashboardIndexRoute,
   ProtectedDashboardClientClientIdRoute: ProtectedDashboardClientClientIdRoute,
+  ProtectedDashboardCreditClientIdRoute: ProtectedDashboardCreditClientIdRoute,
   ProtectedDashboardUserMeRoute: ProtectedDashboardUserMeRoute,
   ProtectedDashboardAccountIndexRoute: ProtectedDashboardAccountIndexRoute,
   ProtectedDashboardCashClosingIndexRoute:
     ProtectedDashboardCashClosingIndexRoute,
   ProtectedDashboardClientIndexRoute: ProtectedDashboardClientIndexRoute,
+  ProtectedDashboardCreditIndexRoute: ProtectedDashboardCreditIndexRoute,
   ProtectedDashboardUserIndexRoute: ProtectedDashboardUserIndexRoute,
 }
 

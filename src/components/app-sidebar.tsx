@@ -78,7 +78,7 @@ const NAV_ITEMS: NavItem[] = [
     items: [
       {
         title: "Calcular Credito",
-        url: "/dashboard",
+        url: "/dashboard/credit",
         allowedRoles: ["admin"],
       },
     ],

@@ -11,7 +11,7 @@ import type {
   SortingState,
 } from "@tanstack/react-table";
 import { type Client, ClientFilterSchema } from "#/services/client/client.type";
-import { ExternalLink, Eye, Pencil, Trash2 } from "lucide-react";
+import { Calculator, ExternalLink, Eye, Pencil, Trash2 } from "lucide-react";
 import { Button } from "#/components/ui/button";
 import { Input } from "#/components/ui/input";
 import { useDialog } from "#/stores/dialog.store";
@@ -70,6 +70,19 @@ const columns: ColumnDef<Client>[] = [
           }
         >
           <ExternalLink />
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon-xs"
+          render={
+            <Link
+              to="/dashboard/credit/$clientId"
+              params={{ clientId: row.original.id }}
+            />
+          }
+          title="Calcular Crédito"
+        >
+          <Calculator />
         </Button>
         <Button
           variant="ghost"
