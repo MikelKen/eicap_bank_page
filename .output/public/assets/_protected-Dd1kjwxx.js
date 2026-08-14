@@ -1,0 +1,1 @@
+import{n as e}from"./Match-BmHdv-QC.js";var t=e;export{t as component};
