@@ -13,3 +13,14 @@ export const useBankOperationsByClientQuery = (
     enabled: !!clientId,
   });
 };
+
+export const useBankOperationsByActiveSessionQuery = (
+  filter: BankOperationFilter,
+  enabled: boolean,
+) => {
+  return useQuery({
+    queryKey: QUERY_KEYS.BANK_OPERATIONS.ACTIVE_SESSION.LIST(filter),
+    queryFn: () => bankOperationService.findByActiveSession(filter),
+    enabled,
+  });
+};

@@ -18,5 +18,20 @@ export const ENDPOINTS = {
   BANK_OPERATIONS: {
     BASE: "/bank-operations",
     BY_CLIENT: (clientId: string) => `/bank-operations/client/${clientId}`,
+    ACTIVE_SESSION: "/bank-operations/active-session",
+    MINE: "/bank-operations/mine",
+  },
+  CASH_SESSIONS: {
+    BASE: "/cash-sessions",
+    OPEN: "/cash-sessions/open",
+    MINE_OPEN: "/cash-sessions/mine/open",
+    DETAIL: (id: string) => `/cash-sessions/${id}`,
+    CLOSE: (id: string) => `/cash-sessions/${id}/close`,
+  },
+  DENOMINATIONS: {
+    BASE: "/denominations",
+  },
+  TYPE_OPERATIONS: {
+    BASE: "/type-operations",
   },
 };

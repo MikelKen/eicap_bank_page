@@ -102,7 +102,7 @@ export function DatePicker({
       />
       <InputGroupAddon align="inline-end">
         <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild>
+          <PopoverTrigger>
             <InputGroupButton
               variant="ghost"
               size="icon-xs"

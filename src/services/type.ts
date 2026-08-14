@@ -12,7 +12,7 @@ const ErrorSchema = z.object({
   details: z.record(z.string(), z.string()).optional(),
 });
 
-type Error = z.infer<typeof ErrorSchema>;
+type Error = z.infer<typeof ErrorSchema> & { status?: number };
 
 async function parseResponse<T>(
   request: Promise<{ data: unknown }>,
@@ -30,7 +30,10 @@ async function parseResponse<T>(
     return parsed.data;
   } catch (error) {
     if (error instanceof AxiosError && error.response) {
-      throw ErrorSchema.parse(error.response.data);
+      throw {
+        ...ErrorSchema.parse(error.response.data),
+        status: error.response.status,
+      };
     }
     throw error;
   }
