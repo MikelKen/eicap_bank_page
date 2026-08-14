@@ -1,5 +1,7 @@
 import { z } from "zod";
 import { Temporal } from "temporal-polyfill";
+import { type OkResponse, PaginatedResponse } from "../type";
+import { PaginationSchema } from "../pagination/pagination.type";
 
 const CashCountSchema = z.object({
   id: z.string(),
@@ -27,6 +29,7 @@ const CashSessionSchema = z.object({
   closing_amount: z.string().nullish(),
   expected_amount: z.string().nullish(),
   difference_amount: z.string().nullish(),
+  operation_code: z.string().optional(),
   user_id: z.string(),
   user_name: z.string().optional(),
   counts: z.array(CashCountSchema).optional(),
@@ -47,6 +50,30 @@ const CashCountInputSchema = z.object({
 
 type CashCountInput = z.infer<typeof CashCountInputSchema>;
 
-export { CashCountSchema, CashSessionSchema, CashCountInputSchema };
+const CashSessionFilterSchema = PaginationSchema.extend({
+  state: z.string().optional(),
+});
 
-export type { CashCount, CashSession, CashCountInput };
+type CashSessionFilter = z.infer<typeof CashSessionFilterSchema>;
+
+const CashSessionListPaginatedSchema = PaginatedResponse(CashSessionSchema);
+
+type FindAllResponse = z.infer<
+  ReturnType<typeof OkResponse<typeof CashSessionListPaginatedSchema>>
+>;
+
+export {
+  CashCountSchema,
+  CashSessionSchema,
+  CashCountInputSchema,
+  CashSessionFilterSchema,
+  CashSessionListPaginatedSchema,
+};
+
+export type {
+  CashCount,
+  CashSession,
+  CashCountInput,
+  CashSessionFilter,
+  FindAllResponse,
+};

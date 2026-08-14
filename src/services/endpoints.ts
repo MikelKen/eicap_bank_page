@@ -23,6 +23,7 @@ export const ENDPOINTS = {
   },
   CASH_SESSIONS: {
     BASE: "/cash-sessions",
+    LIST: "/cash-sessions/",
     OPEN: "/cash-sessions/open",
     MINE_OPEN: "/cash-sessions/mine/open",
     DETAIL: (id: string) => `/cash-sessions/${id}`,

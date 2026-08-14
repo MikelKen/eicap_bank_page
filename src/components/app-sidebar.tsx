@@ -65,7 +65,7 @@ const NAV_ITEMS: NavItem[] = [
       },
       {
         title: "Reporte de Cierre",
-        url: "/dashboard",
+        url: "/dashboard/cash-closing",
         allowedRoles: ["admin"],
       },
     ],

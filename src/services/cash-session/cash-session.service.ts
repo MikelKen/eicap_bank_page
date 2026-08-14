@@ -1,6 +1,9 @@
 import {
   type CashCountInput,
   type CashSession,
+  type CashSessionFilter,
+  type FindAllResponse,
+  CashSessionListPaginatedSchema,
   CashSessionSchema,
 } from "./cash-session.type";
 import { parseResponse } from "../type";
@@ -9,6 +12,14 @@ import { ENDPOINTS } from "../endpoints";
 import { z } from "zod";
 
 class CashSessionService {
+  async findAll(filter: CashSessionFilter): Promise<FindAllResponse> {
+    const result = await parseResponse(
+      api.get(ENDPOINTS.CASH_SESSIONS.LIST, { params: filter }),
+      CashSessionListPaginatedSchema,
+    );
+    return result;
+  }
+
   async findMyOpen(): Promise<CashSession | null> {
     try {
       const result = await parseResponse(
