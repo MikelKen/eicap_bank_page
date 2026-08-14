@@ -14,7 +14,9 @@ import { Route as ProtectedRouteImport } from './routes/_protected'
 import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
 import { Route as ProtectedDashboardRouteImport } from './routes/_protected/dashboard'
 import { Route as ProtectedDashboardIndexRouteImport } from './routes/_protected/dashboard/index'
+import { Route as ProtectedDashboardAccountIndexRouteImport } from './routes/_protected/dashboard/account/index'
 import { Route as ProtectedDashboardClientIndexRouteImport } from './routes/_protected/dashboard/client/index'
+import { Route as ProtectedDashboardClientClientIdRouteImport } from './routes/_protected/dashboard/client/$clientId'
 import { Route as ProtectedDashboardUserIndexRouteImport } from './routes/_protected/dashboard/user/index'
 import { Route as ProtectedDashboardUserMeRouteImport } from './routes/_protected/dashboard/user/me'
 
@@ -42,10 +44,22 @@ const ProtectedDashboardIndexRoute = ProtectedDashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ProtectedDashboardRoute,
 } as any)
+const ProtectedDashboardAccountIndexRoute =
+  ProtectedDashboardAccountIndexRouteImport.update({
+    id: '/account/',
+    path: '/account/',
+    getParentRoute: () => ProtectedDashboardRoute,
+  } as any)
 const ProtectedDashboardClientIndexRoute =
   ProtectedDashboardClientIndexRouteImport.update({
     id: '/client/',
     path: '/client/',
+    getParentRoute: () => ProtectedDashboardRoute,
+  } as any)
+const ProtectedDashboardClientClientIdRoute =
+  ProtectedDashboardClientClientIdRouteImport.update({
+    id: '/client/$clientId',
+    path: '/client/$clientId',
     getParentRoute: () => ProtectedDashboardRoute,
   } as any)
 const ProtectedDashboardUserIndexRoute =
@@ -66,7 +80,9 @@ export interface FileRoutesByFullPath {
   '/unauthorized': typeof UnauthorizedRoute
   '/dashboard': typeof ProtectedDashboardRouteWithChildren
   '/dashboard/': typeof ProtectedDashboardIndexRoute
+  '/dashboard/client/$clientId': typeof ProtectedDashboardClientClientIdRoute
   '/dashboard/user/me': typeof ProtectedDashboardUserMeRoute
+  '/dashboard/account/': typeof ProtectedDashboardAccountIndexRoute
   '/dashboard/client/': typeof ProtectedDashboardClientIndexRoute
   '/dashboard/user/': typeof ProtectedDashboardUserIndexRoute
 }
@@ -74,7 +90,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/unauthorized': typeof UnauthorizedRoute
   '/dashboard': typeof ProtectedDashboardIndexRoute
+  '/dashboard/client/$clientId': typeof ProtectedDashboardClientClientIdRoute
   '/dashboard/user/me': typeof ProtectedDashboardUserMeRoute
+  '/dashboard/account': typeof ProtectedDashboardAccountIndexRoute
   '/dashboard/client': typeof ProtectedDashboardClientIndexRoute
   '/dashboard/user': typeof ProtectedDashboardUserIndexRoute
 }
@@ -85,7 +103,9 @@ export interface FileRoutesById {
   '/unauthorized': typeof UnauthorizedRoute
   '/_protected/dashboard': typeof ProtectedDashboardRouteWithChildren
   '/_protected/dashboard/': typeof ProtectedDashboardIndexRoute
+  '/_protected/dashboard/client/$clientId': typeof ProtectedDashboardClientClientIdRoute
   '/_protected/dashboard/user/me': typeof ProtectedDashboardUserMeRoute
+  '/_protected/dashboard/account/': typeof ProtectedDashboardAccountIndexRoute
   '/_protected/dashboard/client/': typeof ProtectedDashboardClientIndexRoute
   '/_protected/dashboard/user/': typeof ProtectedDashboardUserIndexRoute
 }
@@ -96,7 +116,9 @@ export interface FileRouteTypes {
     | '/unauthorized'
     | '/dashboard'
     | '/dashboard/'
+    | '/dashboard/client/$clientId'
     | '/dashboard/user/me'
+    | '/dashboard/account/'
     | '/dashboard/client/'
     | '/dashboard/user/'
   fileRoutesByTo: FileRoutesByTo
@@ -104,7 +126,9 @@ export interface FileRouteTypes {
     | '/'
     | '/unauthorized'
     | '/dashboard'
+    | '/dashboard/client/$clientId'
     | '/dashboard/user/me'
+    | '/dashboard/account'
     | '/dashboard/client'
     | '/dashboard/user'
   id:
@@ -114,7 +138,9 @@ export interface FileRouteTypes {
     | '/unauthorized'
     | '/_protected/dashboard'
     | '/_protected/dashboard/'
+    | '/_protected/dashboard/client/$clientId'
     | '/_protected/dashboard/user/me'
+    | '/_protected/dashboard/account/'
     | '/_protected/dashboard/client/'
     | '/_protected/dashboard/user/'
   fileRoutesById: FileRoutesById
@@ -162,11 +188,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedDashboardIndexRouteImport
       parentRoute: typeof ProtectedDashboardRoute
     }
+    '/_protected/dashboard/account/': {
+      id: '/_protected/dashboard/account/'
+      path: '/account'
+      fullPath: '/dashboard/account/'
+      preLoaderRoute: typeof ProtectedDashboardAccountIndexRouteImport
+      parentRoute: typeof ProtectedDashboardRoute
+    }
     '/_protected/dashboard/client/': {
       id: '/_protected/dashboard/client/'
       path: '/client'
       fullPath: '/dashboard/client/'
       preLoaderRoute: typeof ProtectedDashboardClientIndexRouteImport
+      parentRoute: typeof ProtectedDashboardRoute
+    }
+    '/_protected/dashboard/client/$clientId': {
+      id: '/_protected/dashboard/client/$clientId'
+      path: '/client/$clientId'
+      fullPath: '/dashboard/client/$clientId'
+      preLoaderRoute: typeof ProtectedDashboardClientClientIdRouteImport
       parentRoute: typeof ProtectedDashboardRoute
     }
     '/_protected/dashboard/user/': {
@@ -188,14 +228,18 @@ declare module '@tanstack/react-router' {
 
 interface ProtectedDashboardRouteChildren {
   ProtectedDashboardIndexRoute: typeof ProtectedDashboardIndexRoute
+  ProtectedDashboardClientClientIdRoute: typeof ProtectedDashboardClientClientIdRoute
   ProtectedDashboardUserMeRoute: typeof ProtectedDashboardUserMeRoute
+  ProtectedDashboardAccountIndexRoute: typeof ProtectedDashboardAccountIndexRoute
   ProtectedDashboardClientIndexRoute: typeof ProtectedDashboardClientIndexRoute
   ProtectedDashboardUserIndexRoute: typeof ProtectedDashboardUserIndexRoute
 }
 
 const ProtectedDashboardRouteChildren: ProtectedDashboardRouteChildren = {
   ProtectedDashboardIndexRoute: ProtectedDashboardIndexRoute,
+  ProtectedDashboardClientClientIdRoute: ProtectedDashboardClientClientIdRoute,
   ProtectedDashboardUserMeRoute: ProtectedDashboardUserMeRoute,
+  ProtectedDashboardAccountIndexRoute: ProtectedDashboardAccountIndexRoute,
   ProtectedDashboardClientIndexRoute: ProtectedDashboardClientIndexRoute,
   ProtectedDashboardUserIndexRoute: ProtectedDashboardUserIndexRoute,
 }

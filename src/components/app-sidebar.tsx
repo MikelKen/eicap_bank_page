@@ -59,7 +59,12 @@ const NAV_ITEMS: NavItem[] = [
         allowedRoles: ["admin"],
       },
       {
-        title: "Reportes de Cierre de Caja",
+        title: "Caja",
+        url: "/dashboard",
+        allowedRoles: ["admin"],
+      },
+      {
+        title: "Reporte de Cierre",
         url: "/dashboard",
         allowedRoles: ["admin"],
       },

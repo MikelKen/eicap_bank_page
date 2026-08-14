@@ -16,3 +16,11 @@ export const useClientMineListQuery = (filter: ClientFilter) => {
     queryFn: () => clientService.findAllMine(filter),
   });
 };
+
+export const useClientDetailQuery = (id: string) => {
+  return useQuery({
+    queryKey: QUERY_KEYS.CLIENTS.DETAIL(id),
+    queryFn: () => clientService.findById(id),
+    enabled: !!id,
+  });
+};

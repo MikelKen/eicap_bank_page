@@ -2,7 +2,9 @@ import {
   type CreateClient,
   type FindAllResponse,
   type ClientFilter,
+  type Client,
   ClientListPaginatedSchema,
+  ClientSchema,
 } from "./client.type";
 import { parseResponse } from "../type";
 import { api } from "#/lib/api";
@@ -23,6 +25,14 @@ class ClientService {
       ClientListPaginatedSchema,
     );
     return result;
+  }
+
+  async findById(id: string): Promise<Client> {
+    const result = await parseResponse(
+      api.get(ENDPOINTS.CLIENTS.DETAIL(id)),
+      ClientSchema,
+    );
+    return result.data;
   }
 
   async create(input: CreateClient) {

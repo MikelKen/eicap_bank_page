@@ -1,4 +1,9 @@
-import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Link,
+  redirect,
+  useNavigate,
+} from "@tanstack/react-router";
 import type {
   ColumnDef,
   OnChangeFn,
@@ -6,7 +11,7 @@ import type {
   SortingState,
 } from "@tanstack/react-table";
 import { type Client, ClientFilterSchema } from "#/services/client/client.type";
-import { Eye, Pencil, Trash2 } from "lucide-react";
+import { ExternalLink, Eye, Pencil, Trash2 } from "lucide-react";
 import { Button } from "#/components/ui/button";
 import { Input } from "#/components/ui/input";
 import { useDialog } from "#/stores/dialog.store";
@@ -54,6 +59,18 @@ const columns: ColumnDef<Client>[] = [
     header: "Acciones",
     cell: ({ row }) => (
       <div className="flex items-center gap-1">
+        <Button
+          variant="ghost"
+          size="icon-xs"
+          render={
+            <Link
+              to="/dashboard/client/$clientId"
+              params={{ clientId: row.original.id }}
+            />
+          }
+        >
+          <ExternalLink />
+        </Button>
         <Button
           variant="ghost"
           size="icon-xs"
