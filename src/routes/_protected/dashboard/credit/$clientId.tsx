@@ -1,6 +1,6 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { ViewCredit } from "#/components/module/credit/view.credit";
-import { useClientDetailQuery } from "#/hooks/client/useQuery.client";
+import { useClientDetailQuery } from "#/hooks/client/useQuery";
 import { usePermission } from "#/stores/permission.store";
 
 const ALLOWED_ROLES = ["admin", "student"];

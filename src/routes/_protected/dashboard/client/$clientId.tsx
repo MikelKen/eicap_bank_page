@@ -25,7 +25,7 @@ import { Input } from "#/components/ui/input";
 import { Skeleton } from "#/components/ui/skeleton";
 import { useAccountsByClientQuery } from "#/hooks/account/useQuery.account";
 import { useBankOperationsByClientQuery } from "#/hooks/bank-operation/useQuery.bank-operation";
-import { useClientDetailQuery } from "#/hooks/client/useQuery.client";
+import { useClientDetailQuery } from "#/hooks/client/useQuery";
 import {
   type Account,
   type AccountFilter,

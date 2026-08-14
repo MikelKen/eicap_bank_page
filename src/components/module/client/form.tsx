@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useClientCreateMutation } from "#/hooks/client/useMutation.client";
+import { useClientCreateMutation } from "#/hooks/client/useMutation";
 import type { DialogContentProps } from "@/stores/dialog.store";
 import { useState } from "react";
 import { DatePicker, toISODate } from "@/components/ui/date-picker";

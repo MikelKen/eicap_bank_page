@@ -19,7 +19,7 @@ import { Skeleton } from "#/components/ui/skeleton";
 import { DataTable } from "#/components/table/data-table";
 import { useMyOpenCashSessionQuery } from "#/hooks/cash-session/useQuery.cash-session";
 import { useBankOperationsByActiveSessionQuery } from "#/hooks/bank-operation/useQuery.bank-operation";
-import { useClientMineListQuery } from "#/hooks/client/useQuery.client";
+import { useClientMineListQuery } from "#/hooks/client/useQuery";
 import { usePermission } from "#/stores/permission.store";
 import { useDialog } from "#/stores/dialog.store";
 import { CountCashForm } from "#/components/module/cash-session/count-cash.form";
