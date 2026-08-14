@@ -52,9 +52,9 @@ const TYPE_LABELS: Record<string, string> = {
 function formatCurrency(value: string): string {
   const numeric = Number(value);
   if (Number.isNaN(numeric)) return value;
-  return numeric.toLocaleString("es-AR", {
+  return numeric.toLocaleString("es-BO", {
     style: "currency",
-    currency: "ARS",
+    currency: "BOB",
   });
 }
 

@@ -23,9 +23,9 @@ interface CountCashFormProps extends DialogContentProps {
 }
 
 function formatCurrency(value: number): string {
-  return value.toLocaleString("es-AR", {
+  return value.toLocaleString("es-BO", {
     style: "currency",
-    currency: "ARS",
+    currency: "BOB",
   });
 }
 
@@ -74,9 +74,7 @@ export function CountCashForm({
       .filter((count) => count.quantity > 0);
 
     if (counts.length === 0) {
-      setError(
-        "Ingresá al menos una denominación con cantidad mayor a cero.",
-      );
+      setError("Ingresá al menos una denominación con cantidad mayor a cero.");
       return;
     }
 
@@ -143,9 +141,7 @@ export function CountCashForm({
 
         <div className="mt-4 flex items-center justify-between rounded-lg border bg-muted/50 p-3">
           <span className="text-sm font-medium">Total contado</span>
-          <span className="text-lg font-semibold">
-            {formatCurrency(total)}
-          </span>
+          <span className="text-lg font-semibold">{formatCurrency(total)}</span>
         </div>
 
         {error && <p className="mt-2 text-sm text-destructive">{error}</p>}
