@@ -7,8 +7,9 @@
     "#/*": "./src/*"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "vite dev --port 3000",
+    "generate-routes": "tsr generate",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },

@@ -34,8 +34,9 @@ function quantityByValue(
   value: string,
 ): number {
   if (!counts) return 0;
+  const target = Number(value);
   const count = counts.find(
-    (c) => c.type === "closing" && c.denomination_value === value,
+    (c) => c.type === "closing" && Number(c.denomination_value) === target,
   );
   return count?.quantity ?? 0;
 }
