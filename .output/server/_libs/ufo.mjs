@@ -61,4 +61,4 @@ function joinURL(base, ...input) {
 	return url;
 }
 //#endregion
-export { withoutTrailingSlash as i, joinURL as n, withLeadingSlash as r, decodePath as t };
+export { decodePath, joinURL, withLeadingSlash, withoutTrailingSlash };
