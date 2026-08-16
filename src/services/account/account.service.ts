@@ -8,7 +8,10 @@ import { api } from "#/lib/api";
 import { ENDPOINTS } from "../endpoints";
 
 class AccountService {
-  async findByClient(clientId: string, filter: AccountFilter): Promise<FindAllResponse> {
+  async findByClient(
+    clientId: string,
+    filter: AccountFilter,
+  ): Promise<FindAllResponse> {
     const result = await parseResponse(
       api.get(ENDPOINTS.ACCOUNTS.BY_CLIENT(clientId), { params: filter }),
       AccountListPaginatedSchema,

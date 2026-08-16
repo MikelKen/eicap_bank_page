@@ -38,6 +38,8 @@ import {
 import { defaultPagination } from "#/services/pagination/pagination.type";
 import { usePermission } from "#/stores/permission.store";
 import { cn } from "#/lib/utils";
+import { useDialog } from "#/stores/dialog.store";
+import { FormClient } from "#/components/module/client/form";
 
 const ALLOWED_ROLES = ["admin", "student"];
 
@@ -288,7 +290,19 @@ function ClientDetailPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Cuentas del Cliente</CardTitle>
+              <CardTitle>
+                Cuentas del Cliente
+                <Button
+                  onClick={() => {
+                    useDialog.getState().open({
+                      title: "Crear Cliente",
+                      component: FormClient,
+                    });
+                  }}
+                >
+                  Crear Cliente
+                </Button>
+              </CardTitle>
               <CardDescription>
                 {accountsLoading
                   ? "Cargando..."
