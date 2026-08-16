@@ -3,6 +3,7 @@ import type { AccountFilter } from "#/services/account/account.type";
 import type { BankOperationFilter } from "#/services/bank-operation/bank-operation.type";
 import type { DenominationFilter } from "#/services/denomination/denomination.type";
 import type { TypeOperationFilter } from "#/services/type-operation/type-operation.type";
+import type { TypeAccountFilter } from "#/services/type-account/type-account.type";
 import type { CashSessionFilter } from "#/services/cash-session/cash-session.type";
 
 export const QUERY_KEYS = {
@@ -62,5 +63,11 @@ export const QUERY_KEYS = {
     LISTS: ["type-operations", "list"] as const,
     LIST: (filter: TypeOperationFilter) =>
       ["type-operations", "list", filter] as const,
+  },
+  TYPE_ACCOUNTS: {
+    ALL: ["type-accounts"] as const,
+    LISTS: ["type-accounts", "list"] as const,
+    LIST: (filter: TypeAccountFilter) =>
+      ["type-accounts", "list", filter] as const,
   },
 } as const;

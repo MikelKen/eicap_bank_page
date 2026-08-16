@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-Cx0BB4qO.js";import{n as t}from"./index-DAn47Y9e.js";import{t as n}from"./useQuery-DgmOlCJb.js";import{t as r}from"./view.credit-FYa7MVQj.js";var i=e();function a(){let{clientId:e}=t.useParams(),{data:a}=n(e);return(0,i.jsx)(r,{client:a})}export{a as component};

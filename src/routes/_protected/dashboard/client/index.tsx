@@ -16,6 +16,7 @@ import { Button } from "#/components/ui/button";
 import { Input } from "#/components/ui/input";
 import { useDialog } from "#/stores/dialog.store";
 import { ViewClient } from "#/components/module/client/view";
+import { DeleteClientDialog } from "#/components/module/client/delete";
 import { usePermission } from "#/stores/permission.store";
 import { useClientMineListQuery } from "#/hooks/client/useQuery";
 import { FormClient } from "#/components/module/client/form";
@@ -100,14 +101,26 @@ const columns: ColumnDef<Client>[] = [
         <Button
           variant="ghost"
           size="icon-xs"
-          onClick={() => alert("Editar client — no implementado")}
+          onClick={() => {
+            useDialog.getState().open({
+              title: `Editar Cliente: ${row.original.name}`,
+              component: FormClient,
+              props: { client: row.original },
+            });
+          }}
         >
           <Pencil />
         </Button>
         <Button
           variant="ghost"
           size="icon-xs"
-          onClick={() => alert("Eliminar cliente — no implementado")}
+          onClick={() => {
+            useDialog.getState().open({
+              title: `Eliminar Cliente: ${row.original.name}`,
+              component: DeleteClientDialog,
+              props: { client: row.original },
+            });
+          }}
         >
           <Trash2 />
         </Button>

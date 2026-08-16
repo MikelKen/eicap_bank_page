@@ -7,6 +7,7 @@ import type {
 } from "@tanstack/react-table";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import { FormUser } from "#/components/module/user/form.user";
+import { DeleteUserDialog } from "#/components/module/user/delete.user";
 import { DataTable } from "#/components/table/data-table";
 import { Button } from "#/components/ui/button";
 import { Input } from "#/components/ui/input";
@@ -66,14 +67,26 @@ const columns: ColumnDef<User>[] = [
         <Button
           variant="ghost"
           size="icon-xs"
-          onClick={() => alert("Editar usuario — no implementado")}
+          onClick={() => {
+            useDialog.getState().open({
+              title: `Editar Usuario: ${row.original.name}`,
+              component: FormUser,
+              props: { user: row.original },
+            });
+          }}
         >
           <Pencil />
         </Button>
         <Button
           variant="ghost"
           size="icon-xs"
-          onClick={() => alert("Eliminar usuario — no implementado")}
+          onClick={() => {
+            useDialog.getState().open({
+              title: `Eliminar Usuario: ${row.original.name}`,
+              component: DeleteUserDialog,
+              props: { user: row.original },
+            });
+          }}
         >
           <Trash2 />
         </Button>

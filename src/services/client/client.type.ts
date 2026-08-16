@@ -36,6 +36,17 @@ type CreateClient = z.infer<typeof CreateClientSchema>;
 
 type CreateClientInput = CreateClient;
 
+const UpdateClientSchema = z.object({
+  name: z.string().min(1, "Nombre es requerido"),
+  ci: z.string().min(1, "Cédula es requerida"),
+  sex: z.string().min(1, "Género es requerido"),
+  birth_date: z.string().min(1, "Fecha de nacimiento es requerida"),
+});
+
+type UpdateClient = z.infer<typeof UpdateClientSchema>;
+
+type UpdateClientInput = UpdateClient;
+
 const ClientListPaginatedSchema = PaginatedResponse(ClientSchema);
 
 type CreateClientResponse = z.infer<ReturnType<typeof OkResponse<z.ZodNull>>>;
@@ -50,6 +61,7 @@ type FindByIDResponse = z.infer<
 
 export {
   CreateClientSchema,
+  UpdateClientSchema,
   ClientSchema,
   ClientFilterSchema,
   ClientListPaginatedSchema,
@@ -60,6 +72,8 @@ export type {
   CreateClient,
   CreateClientResponse,
   CreateClientInput,
+  UpdateClient,
+  UpdateClientInput,
   ClientFilter,
   FindAllResponse,
   FindByIDResponse,

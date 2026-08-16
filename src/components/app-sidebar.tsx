@@ -48,8 +48,27 @@ const NAV_ITEMS: NavItem[] = [
     allowedRoles: ["admin"],
   },
   {
+    title: "Administración",
+    url: "",
+    icon: UserRound,
+    isActive: false,
+    allowedRoles: ["admin"],
+    items: [
+      {
+        title: "Tipo de Cuenta",
+        url: "--",
+        allowedRoles: ["admin"],
+      },
+      {
+        title: "Tipo de Operacion Bancaria",
+        url: "---",
+        allowedRoles: ["admin"],
+      },
+    ],
+  },
+  {
     title: "Operaciones Bancarias",
-    url: "/dashboard",
+    url: "/",
     icon: Bot,
     allowedRoles: ["admin"],
     items: [
@@ -72,7 +91,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     title: "Creditos",
-    url: "/dashboard",
+    url: "/",
     icon: UserRound,
     allowedRoles: ["admin", "student"],
     items: [

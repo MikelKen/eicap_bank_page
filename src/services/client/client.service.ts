@@ -1,6 +1,7 @@
 import {
   type CreateClient,
   type FindAllResponse,
+  type UpdateClient,
   type ClientFilter,
   type Client,
   ClientListPaginatedSchema,
@@ -38,6 +39,22 @@ class ClientService {
   async create(input: CreateClient) {
     const result = await parseResponse(
       api.post(ENDPOINTS.CLIENTS.BASE, input),
+      z.null(),
+    );
+    return result;
+  }
+
+  async update(id: string, input: UpdateClient) {
+    const result = await parseResponse(
+      api.put(ENDPOINTS.CLIENTS.DETAIL(id), input),
+      z.null(),
+    );
+    return result;
+  }
+
+  async delete(id: string) {
+    const result = await parseResponse(
+      api.delete(ENDPOINTS.CLIENTS.DETAIL(id)),
       z.null(),
     );
     return result;

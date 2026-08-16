@@ -39,7 +39,7 @@ import { defaultPagination } from "#/services/pagination/pagination.type";
 import { usePermission } from "#/stores/permission.store";
 import { cn } from "#/lib/utils";
 import { useDialog } from "#/stores/dialog.store";
-import { FormClient } from "#/components/module/client/form";
+import { FormAccount } from "#/components/module/account/form";
 
 const ALLOWED_ROLES = ["admin", "student"];
 
@@ -290,23 +290,29 @@ function ClientDetailPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>
-                Cuentas del Cliente
+              <CardTitle>Cuentas del Cliente</CardTitle>
+              <CardDescription className="flex items-center justify-between gap-2">
+                <span>
+                  {accountsLoading
+                    ? "Cargando..."
+                    : `${accounts.length} cuenta(s)`}
+                </span>
                 <Button
+                  variant="outline"
+                  size="sm"
                   onClick={() => {
                     useDialog.getState().open({
-                      title: "Crear Cliente",
-                      component: FormClient,
+                      title: `Nueva Cuenta`,
+                      component: FormAccount,
+                      props: {
+                        clientId,
+                        clientName: client?.name,
+                      },
                     });
                   }}
                 >
-                  Crear Cliente
+                  Nueva Cuenta
                 </Button>
-              </CardTitle>
-              <CardDescription>
-                {accountsLoading
-                  ? "Cargando..."
-                  : `${accounts.length} cuenta(s)`}
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-2">

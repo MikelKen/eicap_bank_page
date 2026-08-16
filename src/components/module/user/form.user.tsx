@@ -16,10 +16,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useUserCreateMutation } from "#/hooks/user/useMutation.user";
+import {
+  useUserCreateMutation,
+  useUserUpdateMutation,
+} from "#/hooks/user/useMutation.user";
 import type { DialogContentProps } from "@/stores/dialog.store";
 import { useState } from "react";
 import type { Permission } from "#/lib/permission";
+import type { User } from "#/services/user/user.type";
 import { EyeOff } from "lucide-react";
 import { Eye } from "lucide-react";
 
@@ -28,9 +32,18 @@ const ROLE_OPTIONS = [
   { label: "Estudiante", value: "student" },
 ] as const;
 
-export function FormUser({ dialogId, close }: DialogContentProps) {
-  const mutation = useUserCreateMutation(dialogId);
-  const [role, setRole] = useState<Permission>("student");
+interface FormUserProps extends DialogContentProps {
+  user?: User | null;
+}
+
+export function FormUser({ dialogId, close, user }: FormUserProps) {
+  const createMutation = useUserCreateMutation(dialogId);
+  const updateMutation = useUserUpdateMutation(dialogId);
+  const isEdit = !!user;
+  const mutation = isEdit ? updateMutation : createMutation;
+  const [role, setRole] = useState<Permission>(
+    (user?.role as Permission) ?? "student",
+  );
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -45,24 +58,43 @@ export function FormUser({ dialogId, close }: DialogContentProps) {
           const email = String(formData.get("email") ?? "").trim();
           const password = String(formData.get("password") ?? "").trim();
 
-          mutation.mutate({
-            name,
-            email,
-            password,
-            role,
-          });
+          if (isEdit && user) {
+            updateMutation.mutate({
+              id: user.id,
+              data: {
+                name,
+                email: email || undefined,
+                password: password || undefined,
+                role,
+              },
+            });
+          } else {
+            createMutation.mutate({
+              name,
+              email,
+              password,
+              role,
+            });
+          }
         }}
       >
         <DialogHeader>
-          <DialogTitle>Crear Usuario</DialogTitle>
+          <DialogTitle>{isEdit ? "Editar Usuario" : "Crear Usuario"}</DialogTitle>
           <DialogDescription>
-            Completa los datos para crear un nuevo usuario.
+            {isEdit
+              ? "Modifica los datos del usuario."
+              : "Completa los datos para crear un nuevo usuario."}
           </DialogDescription>
         </DialogHeader>
         <FieldGroup>
           <Field>
             <Label htmlFor="name-1">Nombre</Label>
-            <Input id="name-1" name="name" placeholder="Pedro Duarte" />
+            <Input
+              id="name-1"
+              name="name"
+              placeholder="Pedro Duarte"
+              defaultValue={user?.name ?? ""}
+            />
           </Field>
           <Field>
             <Label htmlFor="email-1">Email</Label>
@@ -71,16 +103,19 @@ export function FormUser({ dialogId, close }: DialogContentProps) {
               name="email"
               type="email"
               placeholder="m@example.com"
+              defaultValue={user?.email ?? ""}
             />
           </Field>
           <Field>
-            <Label htmlFor="password-1">Password</Label>
+            <Label htmlFor="password-1">
+              {isEdit ? "Nueva contraseña (opcional)" : "Password"}
+            </Label>
             <div className="relative">
               <Input
                 id="password-1"
                 name="password"
                 type={showPassword ? "text" : "password"}
-                placeholder="••••••••"
+                placeholder={isEdit ? "Dejar en blanco para no cambiarla" : "••••••••"}
                 className="pr-10"
               />
               <button

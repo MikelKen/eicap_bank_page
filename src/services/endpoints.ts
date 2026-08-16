@@ -5,6 +5,7 @@ export const ENDPOINTS = {
   USERS: {
     BASE: "/users",
     ME: "/users/me",
+    DETAIL: (id: string) => `/users/${id}`,
   },
   CLIENTS: {
     BASE: "/clients",
@@ -31,6 +32,9 @@ export const ENDPOINTS = {
   },
   DENOMINATIONS: {
     BASE: "/denominations",
+  },
+  TYPE_ACCOUNTS: {
+    BASE: "/type-accounts",
   },
   TYPE_OPERATIONS: {
     BASE: "/type-operations",

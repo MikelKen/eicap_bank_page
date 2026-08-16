@@ -40,6 +40,17 @@ type CreateUser = z.infer<typeof CreateUserSchema>;
 
 type CreateUserInput = CreateUser;
 
+const UpdateUserSchema = z.object({
+  name: z.string().min(1, "Nombre es requerido"),
+  email: z.string().email("Email inválido").optional(),
+  password: z.string().optional(),
+  role: z.enum(["admin", "student"], "Rol inválido"),
+});
+
+type UpdateUser = z.infer<typeof UpdateUserSchema>;
+
+type UpdateUserInput = UpdateUser;
+
 const UserListPaginatedSchema = PaginatedResponse(UserSchema);
 
 type CreateUserResponse = z.infer<ReturnType<typeof OkResponse<z.ZodNull>>>;
@@ -54,6 +65,7 @@ type FindByIDResponse = z.infer<
 
 export {
   CreateUserSchema,
+  UpdateUserSchema,
   UserSchema,
   UserFilterSchema,
   UserListPaginatedSchema,
@@ -64,6 +76,8 @@ export type {
   CreateUser,
   CreateUserResponse,
   CreateUserInput,
+  UpdateUser,
+  UpdateUserInput,
   UserFilter,
   FindAllResponse,
   FindByIDResponse,
