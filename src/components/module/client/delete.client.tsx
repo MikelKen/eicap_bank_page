@@ -1,5 +1,5 @@
 import { ConfirmDialog } from "@/components/core/confirm-dialog";
-import { useClientDeleteMutation } from "#/hooks/client/useMutation";
+import { useClientDeleteMutation } from "#/hooks/client/useMutation.client";
 import type { Client } from "#/services/client/client.type";
 
 interface DeleteClientDialogProps {

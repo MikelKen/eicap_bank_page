@@ -22,16 +22,52 @@ const TypeAccountFilterSchema = PaginationSchema.extend({
 
 type TypeAccountFilter = z.infer<typeof TypeAccountFilterSchema>;
 
+const CreateTypeAccountSchema = z.object({
+  name: z.string().min(1, "Nombre es requerido"),
+});
+
+type CreateTypeAccount = z.infer<typeof CreateTypeAccountSchema>;
+
+type CreateTypeAccountInput = CreateTypeAccount;
+
+const UpdateTypeAccountSchema = z.object({
+  name: z.string().min(1, "Nombre es requerido"),
+});
+
+type UpdateTypeAccount = z.infer<typeof UpdateTypeAccountSchema>;
+
+type UpdateTypeAccountInput = UpdateTypeAccount;
+
 const TypeAccountListPaginatedSchema = PaginatedResponse(TypeAccountSchema);
+
+type CreateTypeAccountResponse = z.infer<
+  ReturnType<typeof OkResponse<z.ZodNull>>
+>;
 
 type FindAllResponse = z.infer<
   ReturnType<typeof OkResponse<typeof TypeAccountListPaginatedSchema>>
 >;
 
+type FindByIDResponse = z.infer<
+  ReturnType<typeof OkResponse<typeof TypeAccountSchema>>
+>;
+
 export {
+  CreateTypeAccountSchema,
+  UpdateTypeAccountSchema,
   TypeAccountSchema,
   TypeAccountFilterSchema,
   TypeAccountListPaginatedSchema,
 };
 
-export type { TypeAccount, TypeAccountFilter, FindAllResponse };
+export type {
+  TypeAccount,
+  CreateTypeAccount,
+  CreateTypeAccountResponse,
+  CreateTypeAccountInput,
+  UpdateTypeAccount,
+  UpdateTypeAccountInput,
+  TypeAccountFilter,
+  FindAllResponse,
+  FindByIDResponse,
+};

@@ -19,7 +19,7 @@ import {
 import {
   useClientCreateMutation,
   useClientUpdateMutation,
-} from "#/hooks/client/useMutation";
+} from "#/hooks/client/useMutation.client";
 import type { DialogContentProps } from "@/stores/dialog.store";
 import { useState } from "react";
 import { DatePicker, toISODate } from "@/components/ui/date-picker";
@@ -44,11 +44,9 @@ export function FormClient({ dialogId, close, client }: FormClientProps) {
   const updateMutation = useClientUpdateMutation(dialogId);
   const isEdit = !!client;
   const mutation = isEdit ? updateMutation : createMutation;
-  const [sex, setSex] = useState<"M" | "F">(
-    client?.sex === "F" ? "F" : "M",
-  );
+  const [sex, setSex] = useState<"M" | "F">(client?.sex === "F" ? "F" : "M");
   const [birthDate, setBirthDate] = useState<Date | undefined>(
-    client ? toDate(client.birth_date) ?? new Date() : new Date(),
+    client ? (toDate(client.birth_date) ?? new Date()) : new Date(),
   );
 
   return (
@@ -77,7 +75,9 @@ export function FormClient({ dialogId, close, client }: FormClientProps) {
         }}
       >
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Editar Cliente" : "Crear Cliente"}</DialogTitle>
+          <DialogTitle>
+            {isEdit ? "Editar Cliente" : "Crear Cliente"}
+          </DialogTitle>
           <DialogDescription>
             {isEdit
               ? "Modifica los datos del cliente."

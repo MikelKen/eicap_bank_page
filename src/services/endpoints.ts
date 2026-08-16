@@ -35,6 +35,7 @@ export const ENDPOINTS = {
   },
   TYPE_ACCOUNTS: {
     BASE: "/type-accounts",
+    DETAIL: (id: string) => `/type-accounts/${id}`,
   },
   TYPE_OPERATIONS: {
     BASE: "/type-operations",

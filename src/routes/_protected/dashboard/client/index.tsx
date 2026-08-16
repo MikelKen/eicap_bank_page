@@ -15,11 +15,11 @@ import { Calculator, ExternalLink, Eye, Pencil, Trash2 } from "lucide-react";
 import { Button } from "#/components/ui/button";
 import { Input } from "#/components/ui/input";
 import { useDialog } from "#/stores/dialog.store";
-import { ViewClient } from "#/components/module/client/view";
-import { DeleteClientDialog } from "#/components/module/client/delete";
+import { ViewClient } from "#/components/module/client/view.client";
+import { DeleteClientDialog } from "#/components/module/client/delete.client";
 import { usePermission } from "#/stores/permission.store";
-import { useClientMineListQuery } from "#/hooks/client/useQuery";
-import { FormClient } from "#/components/module/client/form";
+import { useClientMineListQuery } from "#/hooks/client/useQuery.client";
+import { FormClient } from "#/components/module/client/form.client";
 import { DataTable } from "#/components/table/data-table";
 
 const ROLES = [

@@ -56,7 +56,7 @@ const NAV_ITEMS: NavItem[] = [
     items: [
       {
         title: "Tipo de Cuenta",
-        url: "--",
+        url: "/dashboard/type-account",
         allowedRoles: ["admin"],
       },
       {
