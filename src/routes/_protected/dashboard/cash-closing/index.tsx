@@ -15,7 +15,7 @@ import {
 } from "#/services/cash-session/cash-session.type";
 import { usePermission } from "#/stores/permission.store";
 
-const ALLOWED_ROLES = ["admin"];
+const ALLOWED_ROLES = ["admin", "student"];
 
 const BILL_DENOMINATIONS = ["200", "100", "50", "20", "10"];
 const COIN_DENOMINATIONS = ["5", "2", "1"];
