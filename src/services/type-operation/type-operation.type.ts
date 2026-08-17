@@ -24,16 +24,54 @@ const TypeOperationFilterSchema = PaginationSchema.extend({
 
 type TypeOperationFilter = z.infer<typeof TypeOperationFilterSchema>;
 
+const CreateTypeOperationSchema = z.object({
+  code: z.string().min(1, "Código es requerido"),
+  name: z.string().min(1, "Nombre es requerido"),
+});
+
+type CreateTypeOperation = z.infer<typeof CreateTypeOperationSchema>;
+
+type CreateTypeOperationInput = CreateTypeOperation;
+
+const UpdateTypeOperationSchema = z.object({
+  code: z.string().min(1, "Código es requerido"),
+  name: z.string().min(1, "Nombre es requerido"),
+});
+
+type UpdateTypeOperation = z.infer<typeof UpdateTypeOperationSchema>;
+
+type UpdateTypeOperationInput = UpdateTypeOperation;
+
 const TypeOperationListPaginatedSchema = PaginatedResponse(TypeOperationSchema);
+
+type CreateTypeOperationResponse = z.infer<
+  ReturnType<typeof OkResponse<z.ZodNull>>
+>;
 
 type FindAllResponse = z.infer<
   ReturnType<typeof OkResponse<typeof TypeOperationListPaginatedSchema>>
 >;
 
+type FindByIDResponse = z.infer<
+  ReturnType<typeof OkResponse<typeof TypeOperationSchema>>
+>;
+
 export {
+  CreateTypeOperationSchema,
+  UpdateTypeOperationSchema,
   TypeOperationSchema,
   TypeOperationFilterSchema,
   TypeOperationListPaginatedSchema,
 };
 
-export type { TypeOperation, TypeOperationFilter, FindAllResponse };
+export type {
+  TypeOperation,
+  CreateTypeOperation,
+  CreateTypeOperationResponse,
+  CreateTypeOperationInput,
+  UpdateTypeOperationInput,
+  UpdateTypeOperation,
+  TypeOperationFilter,
+  FindAllResponse,
+  FindByIDResponse,
+};

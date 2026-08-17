@@ -12,10 +12,11 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Link } from "@tanstack/react-router";
+import { useMeQuery } from "#/hooks/user/useQuery.user";
+import { type Permission } from "#/lib/permission";
 import { useAuthStore } from "@/stores/auth.store";
-import { usePermission } from "@/stores/permission.store";
 
-type PermissionRole = "admin" | "student";
+type PermissionRole = Permission;
 
 type NavSubItem = {
   title: string;
@@ -61,7 +62,7 @@ const NAV_ITEMS: NavItem[] = [
       },
       {
         title: "Tipo de Operacion Bancaria",
-        url: "---",
+        url: "/dashboard/type-operation",
         allowedRoles: ["admin"],
       },
     ],
@@ -70,12 +71,12 @@ const NAV_ITEMS: NavItem[] = [
     title: "Operaciones Bancarias",
     url: "/",
     icon: Bot,
-    allowedRoles: ["admin"],
+    allowedRoles: ["admin", "student"],
     items: [
       {
         title: "Clientes",
         url: "/dashboard/client",
-        allowedRoles: ["admin"],
+        allowedRoles: ["admin", "student"],
       },
       {
         title: "Caja",
@@ -85,7 +86,7 @@ const NAV_ITEMS: NavItem[] = [
       {
         title: "Reporte de Cierre",
         url: "/dashboard/cash-closing",
-        allowedRoles: ["admin"],
+        allowedRoles: ["admin", "student"],
       },
     ],
   },
@@ -98,7 +99,7 @@ const NAV_ITEMS: NavItem[] = [
       {
         title: "Calcular Credito",
         url: "/dashboard/credit",
-        allowedRoles: ["admin"],
+        allowedRoles: ["admin", "student"],
       },
     ],
   },
@@ -135,10 +136,10 @@ function getNavItems(role: PermissionRole | null) {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const permission = usePermission((state) => state.permission);
+  const { data: meData } = useMeQuery();
   const storeUser = useAuthStore((state) => state.user);
-  const user = storeUser;
-  const role = permission ?? (user?.role as PermissionRole | undefined) ?? null;
+  const user = meData ?? storeUser;
+  const role = (user?.role as PermissionRole | undefined) ?? null;
   const navMain = getNavItems(role);
 
   return (

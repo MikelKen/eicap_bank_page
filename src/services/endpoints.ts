@@ -39,5 +39,6 @@ export const ENDPOINTS = {
   },
   TYPE_OPERATIONS: {
     BASE: "/type-operations",
+    DETAIL: (id: string) => `/type-operations/${id}`,
   },
 };
