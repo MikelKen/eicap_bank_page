@@ -1,5 +1,13 @@
 import * as React from "react";
-import { Bot, Home, Command, UserRound, type LucideIcon } from "lucide-react";
+import {
+  Home,
+  Command,
+  UserRound,
+  Landmark,
+  FolderCog,
+  ClipboardPenLine,
+  type LucideIcon,
+} from "lucide-react";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
 import {
@@ -50,8 +58,8 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     title: "Administración",
-    url: "",
-    icon: UserRound,
+    url: "/dashboard/type-account",
+    icon: FolderCog,
     isActive: false,
     allowedRoles: ["admin"],
     items: [
@@ -69,8 +77,8 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     title: "Operaciones Bancarias",
-    url: "/",
-    icon: Bot,
+    url: "/dashboard/operations",
+    icon: Landmark,
     allowedRoles: ["admin", "student"],
     items: [
       {
@@ -92,8 +100,8 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     title: "Creditos",
-    url: "/",
-    icon: UserRound,
+    url: "/dashboard/credit",
+    icon: ClipboardPenLine,
     allowedRoles: ["admin", "student"],
     items: [
       {
