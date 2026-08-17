@@ -9,7 +9,12 @@ import {
   CardHeader,
   CardTitle,
 } from "#/components/ui/card";
-import { Field, FieldContent, FieldDescription, FieldLabel } from "#/components/ui/field";
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldLabel,
+} from "#/components/ui/field";
 import { Input } from "#/components/ui/input";
 import {
   Select,
@@ -52,7 +57,7 @@ interface ViewCreditProps {
 }
 
 export function ViewCredit({ client }: ViewCreditProps) {
-  const [exchangeRate, setExchangeRate] = useState(6.86);
+  const [exchangeRate, setExchangeRate] = useState(0);
   const [dollars, setDollars] = useState(0);
   const [term, setTerm] = useState(12);
   const [interestRate, setInterestRate] = useState(0);
@@ -60,7 +65,14 @@ export function ViewCredit({ client }: ViewCreditProps) {
   const [frequency, setFrequency] = useState<number>(1);
 
   const input: CreditInput = useMemo(
-    () => ({ exchangeRate, dollars, term, interestRate, desgravamenRate, frequency }),
+    () => ({
+      exchangeRate,
+      dollars,
+      term,
+      interestRate,
+      desgravamenRate,
+      frequency,
+    }),
     [exchangeRate, dollars, term, interestRate, desgravamenRate, frequency],
   );
 
@@ -91,7 +103,11 @@ export function ViewCredit({ client }: ViewCreditProps) {
               No hay un cliente seleccionado. Puedes calcular un crédito sin
               asociar o elegir un cliente desde la lista.
             </p>
-            <Button size="sm" variant="outline" render={<Link to="/dashboard/client" />}>
+            <Button
+              size="sm"
+              variant="outline"
+              render={<Link to="/dashboard/client" />}
+            >
               Ir a Clientes
             </Button>
           </CardContent>
@@ -102,13 +118,16 @@ export function ViewCredit({ client }: ViewCreditProps) {
         <CardHeader>
           <CardTitle>Datos del Crédito</CardTitle>
           <CardDescription>
-            Completa los datos para calcular la cuota y la tabla de amortización.
+            Completa los datos para calcular la cuota y la tabla de
+            amortización.
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <Field>
-              <FieldLabel htmlFor="exchange-rate">Cotización (Bs/USD)</FieldLabel>
+              <FieldLabel htmlFor="exchange-rate">
+                Cotización (Bs/USD)
+              </FieldLabel>
               <FieldContent>
                 <Input
                   id="exchange-rate"
@@ -116,7 +135,8 @@ export function ViewCredit({ client }: ViewCreditProps) {
                   inputMode="decimal"
                   min="0"
                   step="0.01"
-                  value={exchangeRate}
+                  // value={exchangeRate}
+                  placeholder="6.96"
                   onChange={(e) => setExchangeRate(Number(e.target.value))}
                 />
               </FieldContent>
@@ -130,7 +150,8 @@ export function ViewCredit({ client }: ViewCreditProps) {
                   inputMode="decimal"
                   min="0"
                   step="0.01"
-                  value={dollars}
+                  // value={dollars}
+                  placeholder="1000"
                   onChange={(e) => setDollars(Number(e.target.value))}
                 />
               </FieldContent>
@@ -156,12 +177,15 @@ export function ViewCredit({ client }: ViewCreditProps) {
                   min="1"
                   step="1"
                   value={term}
+                  placeholder="12"
                   onChange={(e) => setTerm(Number(e.target.value))}
                 />
               </FieldContent>
             </Field>
             <Field>
-              <FieldLabel htmlFor="interest-rate">Tasa de interés (% anual)</FieldLabel>
+              <FieldLabel htmlFor="interest-rate">
+                Tasa de interés (% anual)
+              </FieldLabel>
               <FieldContent>
                 <Input
                   id="interest-rate"
@@ -169,7 +193,8 @@ export function ViewCredit({ client }: ViewCreditProps) {
                   inputMode="decimal"
                   min="0"
                   step="0.01"
-                  value={interestRate}
+                  // value={interestRate}
+                  placeholder="0.00065"
                   onChange={(e) => setInterestRate(Number(e.target.value))}
                 />
               </FieldContent>
@@ -183,7 +208,8 @@ export function ViewCredit({ client }: ViewCreditProps) {
                   inputMode="decimal"
                   min="0"
                   step="0.01"
-                  value={desgravamenRate}
+                  // value={desgravamenRate}
+                  placeholder="0.5"
                   onChange={(e) => setDesgravamenRate(Number(e.target.value))}
                 />
               </FieldContent>
@@ -200,7 +226,10 @@ export function ViewCredit({ client }: ViewCreditProps) {
                   </SelectTrigger>
                   <SelectContent>
                     {FREQUENCY_OPTIONS.map((option) => (
-                      <SelectItem key={option.value} value={String(option.value)}>
+                      <SelectItem
+                        key={option.value}
+                        value={String(option.value)}
+                      >
                         {option.label}
                       </SelectItem>
                     ))}
@@ -215,9 +244,11 @@ export function ViewCredit({ client }: ViewCreditProps) {
                   value={result.cuota ? formatCurrency(result.cuota) : ""}
                   readOnly
                   disabled
+                  placeholder="Calculando..."
                 />
                 <FieldDescription>
-                  Cuota fija (Cuota 1) calculada con PMT sobre {result.periods} cuota(s).
+                  Cuota fija (Cuota 1) calculada con PMT sobre {result.periods}{" "}
+                  cuota(s).
                 </FieldDescription>
               </FieldContent>
             </Field>
@@ -242,7 +273,9 @@ export function ViewCredit({ client }: ViewCreditProps) {
                 <TableHead className="text-right">Interés</TableHead>
                 <TableHead className="text-right">Desgravamen</TableHead>
                 <TableHead className="text-right">Prenda Mercantil</TableHead>
-                <TableHead className="text-right">Seguro de Propiedad</TableHead>
+                <TableHead className="text-right">
+                  Seguro de Propiedad
+                </TableHead>
                 <TableHead className="text-right">Cuota</TableHead>
                 <TableHead className="text-right">Cuota 1</TableHead>
                 <TableHead className="text-right">Saldo</TableHead>
