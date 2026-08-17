@@ -1,5 +1,5 @@
 import type { TypeOperation } from "#/services/type-operation/type-operation.type";
-import { useTypeAccountDeleteMutation } from "#/hooks/type-account/useMutation.type-account";
+import { useTypeOperationDeleteMutation } from "#/hooks/type-operation/useMutation.type-operation";
 import { ConfirmDialog } from "#/components/core/confirm-dialog";
 
 interface DeleteTypeOperationDialogProps {
@@ -13,7 +13,7 @@ export function DeleteTypeOperationDialog({
   close,
   typeOperation,
 }: DeleteTypeOperationDialogProps) {
-  const mutation = useTypeAccountDeleteMutation(dialogId);
+  const mutation = useTypeOperationDeleteMutation(dialogId);
 
   return (
     <ConfirmDialog
