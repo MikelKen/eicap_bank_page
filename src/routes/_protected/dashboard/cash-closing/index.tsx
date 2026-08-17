@@ -57,7 +57,7 @@ function denominationColumns(
 const CLOSING_COLUMNS: ColumnDef<CashSession>[] = [
   {
     accessorKey: "operation_code",
-    header: "Código Op. Cierre",
+    header: "Código",
     cell: ({ row }) => row.original.operation_code ?? "—",
   },
   ...denominationColumns(BILL_DENOMINATIONS, ""),
